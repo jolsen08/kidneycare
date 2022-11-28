@@ -4,5 +4,5 @@ def dashboardPageView(request):
     context = {
  
     }
-    return render(request, 'dashboard/index.html', context)
+    return render(request, 'dashboard/dashboard.html', context)
 # Create your views here.
