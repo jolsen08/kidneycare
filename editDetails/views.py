@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
-def dashboardPageView(request):
+def editDetailsPageView(request):
     context = {
  
     }
-    return render(request, 'dashboard/index.html', context)
+    return render(request, 'editDetails/editDetails.html', context)
 # Create your views here.
