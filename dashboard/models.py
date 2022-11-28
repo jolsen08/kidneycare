@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from datetime import datetime
 
@@ -19,7 +20,7 @@ class Person(models.Model) :
     weight = models.IntegerField()
     highbloodpressure = models.BooleanField()
     diabetes = models.BooleanField()
-    condition = models.ForeignKey(Condition)
+    condition = models.ForeignKey(Condition, on_delete=CASCADE)
 
     def full_name(self) :
         return (self.full_name)
