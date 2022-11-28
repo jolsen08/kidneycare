@@ -1,8 +1,9 @@
 from django.shortcuts import render
 
-def dashboardPageView(request):
+def indexPageView(request):
     context = {
  
     }
     return render(request, 'base.html', context)
+
 # Create your views here.
