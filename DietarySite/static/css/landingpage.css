@@ -76,6 +76,55 @@
   }
 }
 
+
+
+.containercustom {
+  display: flex;
+  height: 30vh;
+  /* line-height: 30vh; */
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: 1vw;
+  margin-left: 1vw;
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+  background-color: grey;
+  padding-top: .75rem;
+  padding-bottom: 1rem;
+  border-radius: 1rem;
+}
+.containercustom2 {
+  display: flex;
+  height: 10vh;
+  /* line-height: 30vh; */
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: 1vw;
+  margin-left: 1vw;
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+  background-color: grey;
+  padding-top: .75rem;
+  padding-bottom: 1rem;
+  border-radius: 1rem;
+}
+
+.customitem {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.customitem1 {
+  flex-grow: 2;
+  text-align: left;
+}
+
+
+
+
+
+
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
