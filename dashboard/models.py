@@ -4,26 +4,35 @@ from datetime import datetime
 
 class Condition(models.Model) :
     condition_stage = models.IntegerField()
-    sodium_recommendation = models.IntegerField()
-    protein_recommendation = models.IntegerField()
-    potassium_recommendation = models.IntegerField()
-    phosphorus_recommendation = models.IntegerField()
+    sodium_recommendation_mg_min = models.IntegerField()
+    sodium_recommendation_mg_max = models.IntegerField()
+    protein_recommendation_g_per_kg_body_weight = models.FloatField()
+    water_recommendation_L_min_men = models.FloatField()
+    water_recommendation_L_max_men = models.FloatField()
+    water_recommendation_L_min_women = models.FloatField()
+    water_recommendation_L_max_women = models.FloatField()
+    potassium_recommendation_mg_min = models.IntegerField()
+    potassium_recommendation_mg_max = models.IntegerField()
+    phosphorus_recommendation_mg_min = models.IntegerField()
+    phosphorus_recommendation_mg_max = models.IntegerField()
 
     def __str__(self) :
-        return(self.condition_stage)
+        self.condition_stage = str(self.condition_stage)
+        return('Kidney Disease Stage ' + self.condition_stage)
 
 class Person(models.Model) :
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     age = models.IntegerField()
-    height = models.IntegerField()
-    weight = models.IntegerField()
+    height_in = models.IntegerField()
+    weight_lbs = models.IntegerField()
     highbloodpressure = models.BooleanField()
     diabetes = models.BooleanField()
     condition = models.ForeignKey(Condition, on_delete=models.CASCADE)
 
-    def full_name(self) :
-        return (self.full_name)
+    def __str__(self) :
+        full_name = self.first_name + ' ' + self.last_name
+        return(self.full_name)
 
     @property
     def full_name(self) :
