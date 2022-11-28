@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
     'tracker.apps.TrackerConfig',
-    'landingpage.apps.LandingpageConfig'
+    'landingpage.apps.LandingpageConfig',
+    'editDetails.apps.EditdetailsConfig'
 ]
 
 MIDDLEWARE = [
@@ -77,15 +78,15 @@ WSGI_APPLICATION = 'DietarySite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'intex',
-    'USER': 'postgres',
-    'PASSWORD': 'password',
-    'HOST': 'localhost'
-    }
-}  
+# DATABASES = {
+#     'default': {
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME': 'intex',
+#     'USER': 'postgres',
+#     'PASSWORD': 'password',
+#     'HOST': 'localhost'
+#     }
+# }  
 
 
 # Password validation
@@ -122,7 +123,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'DietarySite/static')
+    ] 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
