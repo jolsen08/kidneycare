@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dashboard.apps.DashboardConfig',
     'tracker.apps.TrackerConfig',
-    'landingpage.apps.LandingpageConfig'
+    'landingpage.apps.LandingpageConfig',
+    'editDetails.apps.EditdetailsConfig'
 ]
 
 MIDDLEWARE = [
