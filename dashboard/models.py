@@ -20,7 +20,7 @@ class Person(models.Model) :
     weight = models.IntegerField()
     highbloodpressure = models.BooleanField()
     diabetes = models.BooleanField()
-    condition = models.ForeignKey(Condition, on_delete=CASCADE)
+    condition = models.ForeignKey(Condition, on_delete=models.CASCADE)
 
     def full_name(self) :
         return (self.full_name)
