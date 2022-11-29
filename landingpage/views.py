@@ -6,4 +6,9 @@ def indexPageView(request):
     }
     return render(request, 'landingpage/index.html', context)
 
-# Create your views here.
+def HomePageView(request):
+    context = {
+ 
+    }
+    return render(request, 'accounts/home.html', context)
+

@@ -23,7 +23,7 @@
     crossorigin="anonymous"></script>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="home">Login System</a>
+    <a class="navbar-brand" href="home">Kidney Care</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -38,14 +38,14 @@
           <a class="nav-link" href="#">Hi, {{user.first_name}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="logout_user">LOGOUT</a>
+          <a class="nav-link" href="{% url 'logout_user' %}">LOGOUT</a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="register">SIGN UP</a>
+          <a class="nav-link" href="{% url 'register' %}">SIGN UP</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="login_user">LOGIN</a>
+          <a class="nav-link" href="{% url 'login_user' %}">LOGIN</a>
         </li>
         {% endif %}
       </ul>

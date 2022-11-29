@@ -4,8 +4,8 @@ from django.contrib.auth.models import User, auth
 
 
 def home(request):
-    return render(request, 'home.html')
-
+    return render(request, 'accounts/home.html')
+    
 def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -15,7 +15,7 @@ def login_user(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect('home')
+            return render(request, 'landingpage/index.html')
         else:
             messages.info(request, 'Invalid Username or Password')
             return redirect('login_user')
@@ -23,7 +23,7 @@ def login_user(request):
 
 
     else:
-        return render(request, 'login.html')
+        return render(request, 'accounts/login.html')
 
 def register(request):
     if request.method == 'POST':
@@ -59,4 +59,4 @@ def register(request):
 
 def logout_user(request):
     auth.logout(request)
-    return redirect('home')
+    return render(request, 'accounts/home.html')
