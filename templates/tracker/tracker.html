@@ -44,6 +44,9 @@
            
             </div>
             <div class="customitem1" style="color: white">
+                {% for i in person%}
+                    <p>{{person.first_name}}</p>
+                {% endfor %}
                 {{person}}
                 <p>First Name: </p>
                 <p>Last Name:</p>
