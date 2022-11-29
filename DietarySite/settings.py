@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'tracker.apps.TrackerConfig',
     'landingpage.apps.LandingpageConfig',
-    'editDetails.apps.EditdetailsConfig'
+    'editDetails.apps.EditdetailsConfig',
+    'accounts',
 ]
 
 MIDDLEWARE = [

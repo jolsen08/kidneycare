@@ -22,6 +22,7 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),
     path('editdetails/', include('editDetails.urls')),
     path('tracker/', include('tracker.urls')),
+    path('accounts/', include('accounts.urls')),
     path('', include('landingpage.urls')),
 
 
