@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
+from dashboard.models import Person, FoodConsumption
+
 
 
 def home(request):
@@ -56,6 +58,30 @@ def register(request):
 
     else:
         return render(request, 'accounts/registration.html')
+
+
+def registerdetails(request):
+    if request.method == 'POST':
+        id = request.POST['user_id']
+        user = Person.objects.get(user_id=id)
+        user.age = request.POST['age']
+        user.gender = request.POST['gender']
+        user.height_in = request.POST['height']
+        user.weight_lbs = request.POST['weight']
+
+        user.save() 
+        return render(request, 'landingpage/index.html')
+    else:
+        return render(request, 'accounts/registration.html')
+
+def pdetails(request):
+    data = Person.objects.all()
+    # food = FoodConsumption.objects.all()
+    context = {
+        "person": data,
+        # "food" : food
+    }
+    return render(request, 'accounts/pdetails.html',context)
 
 def logout_user(request):
     auth.logout(request)

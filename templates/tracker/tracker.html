@@ -40,23 +40,25 @@
 
             <div class="customitem">
 
-                Photo
            
             </div>
-            <div class="customitem1" style="color: white">
+            <div class="customitem" style="color: white">
                 {% for i in person %}
                     <p>{{i.first_name}}</p>
                 {% endfor %}
-                <p>First Name: </p>
-                <p>Last Name:</p>
-                <p>Weight: </p>
-                <p>Height: </p>
-                <a href="" style="text-align: center">Edit Information</a>
+                <p>First Name: {{user.first_name}}</p>
+                <p>Last Name: {{user.last_name}}</p>
+                <p>Gender: {{user.person.gender}} </p>
+                <p>Age: {{user.person.age}} </p>
+                <p>Height: {{user.person.height_in}} </p>
+                <p>Weight: {{user.person.weight_lbs}} </p>
+                <a href="{% url 'pdetails' %}" style="text-align: center">Edit Information</a>
             </div>
         </div>
         <a href="">
         <div class="containercustom2" style="justify-content: center">
             <h1>Add Food</h1>
+
         </div>
         </a>
         <!-- Bootstrap core JS-->
