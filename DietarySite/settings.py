@@ -78,25 +78,25 @@ WSGI_APPLICATION = 'DietarySite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-     'default': {
-     'ENGINE': 'django.db.backends.postgresql',
-     'NAME': 'intex',
-     'USER': 'postgres',
-     'PASSWORD': 'admin123',
-     'HOST': 'localhost'
-     }
- }  
-
 # DATABASES = {
 #      'default': {
 #      'ENGINE': 'django.db.backends.postgresql',
 #      'NAME': 'intex',
 #      'USER': 'postgres',
-#      'PASSWORD': 'password',
+#      'PASSWORD': 'admin123',
 #      'HOST': 'localhost'
 #      }
 #  }  
+
+DATABASES = {
+     'default': {
+     'ENGINE': 'django.db.backends.postgresql',
+     'NAME': 'intex',
+     'USER': 'postgres',
+     'PASSWORD': 'password',
+     'HOST': 'localhost'
+     }
+ }  
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
