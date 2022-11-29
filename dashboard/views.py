@@ -1,8 +1,11 @@
 from django.shortcuts import render
-
-def dashboardPageView(request):
-    context = {
+from .models import Food
  
+# Create your views here.
+def dashboardPageView(request):
+    data = Food.objects.all()
+    context = {
+        'data': data,
     }
     return render(request, 'dashboard/dashboard.html', context)
-# Create your views here.
+

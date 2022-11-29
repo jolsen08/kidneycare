@@ -4,28 +4,6 @@ from datetime import datetime
 
 class Condition(models.Model) :
     condition_stage = models.IntegerField()
-    serum_k_mg_per_dL_min = models.FloatField()
-    serum_k_mg_per_dL_max = models.FloatField()
-    serum_phos_mg_per_dL_min = models.FloatField()
-    serum_phos_mg_per_dL_max = models.FloatField()
-    serum_na_mEq_per_L_min = models.IntegerField()
-    serum_na_mEq_per_L_max = models.IntegerField()
-    serum_creatinine_mg_per_dL_men = models.CharField(max_length=10)
-    serum_creatinine_mg_per_dL_women = models.CharField(max_length=10)
-    serum_albumin_mg_per_dL = models.FloatField()
-    serum_blood_sugar_mg_per_dL_min = models.IntegerField()
-    serum_blood_sugar_mg_per_dL_max = models.IntegerField()
-    dv_sodium_recommendation_mg_min = models.IntegerField()
-    dv_sodium_recommendation_mg_max = models.IntegerField()
-    dv_protein_recommendation_g_per_kg_body_weight = models.FloatField()
-    dv_water_recommendation_L_min_men = models.FloatField()
-    dv_water_recommendation_L_max_men = models.FloatField()
-    dv_water_recommendation_L_min_women = models.FloatField()
-    dv_water_recommendation_L_max_women = models.FloatField()
-    dv_k_recommendation_mg_min = models.IntegerField()
-    dv_k_recommendation_mg_max = models.IntegerField()
-    dv_phos_recommendation_mg_min = models.IntegerField()
-    dv_phos_recommendation_mg_max = models.IntegerField()
 
     def __str__(self) :
         self.condition_stage = str(self.condition_stage)
@@ -54,11 +32,6 @@ class Person(models.Model) :
     serum_creatinine_mg_per_dL = models.CharField(max_length=10)
     serum_albumin_mg_per_dL = models.FloatField()
     serum_blood_sugar_mg_per_dL = models.IntegerField()
-    dv_sodium_mg = models.IntegerField()
-    dv_protein_g_per_kg_body_weight = models.FloatField()
-    dv_water_L = models.FloatField()
-    dv_k_mg = models.IntegerField()
-    dv_phos_mg = models.IntegerField()
 
     def __str__(self) :
         full_name = self.first_name + ' ' + self.last_name
@@ -73,14 +46,30 @@ class Person(models.Model) :
         self.last_name = self.last_name.upper()
         super(Person, self).save()
 
-
-class FoodConsumption(models.Model) :
+class Food(models.Model) :
     food_name = models.CharField(max_length=100)
-    date_consumed = models.DateField()
-    quantity = models.IntegerField()
+    dv_sodium_mg = models.IntegerField()
+    dv_protein_g_per_kg_body_weight = models.FloatField()
+    dv_k_mg = models.IntegerField()
+    dv_phos_mg = models.IntegerField()
 
     def __str__(self) :
         return(self.food_name)
+
+class FoodConsumption(models.Model) :
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    food_name = models.ForeignKey(Food, on_delete=models.CASCADE)
+    date_consumed = models.DateField()
+    quantity = models.IntegerField()
+
+class WaterConsumption(models.Model) :
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    dv_water_L = models.FloatField()
+    date_consumed = models.DateField()
+
+
+
+
 
 
 
