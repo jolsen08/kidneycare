@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from dashboard.models import Person
 
 def trackerPageView(request):
     data = Person.object.all()
