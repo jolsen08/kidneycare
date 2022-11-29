@@ -1,6 +1,9 @@
 from tkinter import CASCADE
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import User 
+from django.dispatch import receiver
+from django.db.models.signals import post_save 
 
 class Condition(models.Model) :
     condition_stage = models.IntegerField()
@@ -16,6 +19,7 @@ class Gender(models.Model) :
         return(self.gender)
 
 class Person(models.Model) :
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE)
@@ -45,6 +49,18 @@ class Person(models.Model) :
         self.first_name = self.first_name.upper()
         self.last_name = self.last_name.upper()
         super(Person, self).save()
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Person.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    # instance.profile.save()
+    instance.person.save()
+
+# a.get_profile().DOB
 
 class Food(models.Model) :
     food_name = models.CharField(max_length=100)
