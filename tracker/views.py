@@ -1,11 +1,7 @@
 from django.shortcuts import render
-<<<<<<< HEAD
 from dashboard.models import Person
 from dashboard.models import Food
 from dashboard.models import FoodConsumption
-=======
-from dashboard.models import Person,FoodConsumption
->>>>>>> 940c73787c574187aaed3558c4d4cd48450c426d
 
 def trackerPageView(request):
     data = Person.objects.all()
