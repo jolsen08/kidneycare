@@ -30,6 +30,9 @@ class Person(models.Model) :
     # serum_albumin_mg_per_dL = models.FloatField(default="0")
     # serum_blood_sugar_mg_per_dL = models.IntegerField(default="0")
 
+    def __str__(self) :
+        self.user.first_name = self.user.first_name.upper()
+        return(self.user.first_name)
 
     # def __str__(self) :
     #     full_name = self.first_name + ' ' + self.last_name
@@ -61,6 +64,7 @@ class Food(models.Model) :
     dv_phos_mg = models.IntegerField()
 
     def __str__(self) :
+        self.food_name = self.food_name.upper()
         return(self.food_name)
 
 class FoodConsumption(models.Model) :
@@ -68,6 +72,10 @@ class FoodConsumption(models.Model) :
     food_name = models.ForeignKey(Food, on_delete=models.CASCADE)
     date_consumed = models.DateField()
     quantity = models.IntegerField()
+
+    def __str__(self) :
+        self.food_name.food_name = self.food_name.food_name.upper()
+        return(self.food_name.food_name)
 
 class WaterConsumption(models.Model) :
     person = models.ForeignKey(Person, on_delete=models.CASCADE)

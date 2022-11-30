@@ -58,10 +58,10 @@ const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [{% for data in data %} '{{data.Food}}', {% endfor %}],
+        labels: [{% for data in data %} '{{data.date_consumed}}', {% endfor %}],
         datasets: [{
-            label: 'Sodium intake (mg)',
-            data: [{% for data in data %} '{{data.dv_sodium_mg}}', {% endfor %}],
+            label: 'Food Consumption',
+            data: [{% for data in data %} '{{data.quantity}}', {% endfor %}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
