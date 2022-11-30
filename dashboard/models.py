@@ -34,9 +34,8 @@ class Person(models.Model) :
         self.user.first_name = self.user.first_name.upper()
         return(self.user.first_name)
 
-    # def __str__(self) :
-    #     full_name = self.first_name + ' ' + self.last_name
-    #     return(self.full_name)
+    def __str__(self) :
+        return(str(self.user))
 
     # @property
     # def full_name(self) :
