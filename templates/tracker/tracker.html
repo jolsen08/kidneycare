@@ -58,7 +58,37 @@
         <a href="">
         <div class="containercustom2" style="justify-content: center">
             <h1>Add Food</h1>
+            <br>
+            {% comment %} <form name="Form" method="post" action="{% url 'addFood' %}">
+                {% csrf_token %}
+                <input type="hidden" id="user_id" name="user_id" value="{{user.id}}">
 
+                <label for="food_name">Food Name:</label>
+                <input type="text" name="food_name" id="food_name" autofocus>
+                <br><br>
+
+                <label for="quantity">Quantity:</label>
+                <input type="text" name="quantity" id="quantity">
+                <br><br>
+
+                <label for="dv_sodium_mg">mg of Sodium:</label>
+                <input type="text" name="dv_sodium_mg" id="dv_sodium_mg">
+                <br><br>
+
+                <label for="dv_protein_g_per_kg_body_weight">g Protein /Kg of Body Weight:</label>
+                <input type="text" name="dv_protein_g_per_kg_body_weight" id="dv_protein_g_per_kg_body_weight">
+                <br><br>
+
+                <label for="dv_k_mg">mg of Potassium</label>
+                <input type="text" name="dv_k_mg" id="dv_k_mg">
+                <br><br>
+
+                <label for="dv_phos_mg">mg of Phosphorus</label>
+                <input type="text" name="dv_phos_mg" id="dv_phos_mg">
+                <br><br>
+
+                <button type="submit">Add</button>
+            </form> {% endcomment %}
         </div>
         </a>
         <!-- Bootstrap core JS-->
