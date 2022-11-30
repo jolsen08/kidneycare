@@ -2,16 +2,23 @@ from django.shortcuts import render
 from dashboard.models import Person
 from dashboard.models import Food
 from dashboard.models import FoodConsumption
+from django.contrib.auth.models import User, auth
+from datetime import datetime, timedelta, time, date
 
 def trackerPageView(request):
-    data = Person.objects.all()
-    food = FoodConsumption.objects.all()
+    # data = Person.objects.all()
+    # user = Person.objects.get(user_id=id)
+    id = request.user.id
+    user = Person.objects.get(user_id = id)
+    food = FoodConsumption.objects.filter(person_id = id)
+
     context = {
-        "person": data,
+        "person": user,
         "food" : food,
         "header" : ["Food Name","Date Consumed","Quantity"]
     }
     return render(request, 'tracker/tracker.html', context)
+
 
 # def addUserFoodPageView(request):
 #     if request.method == "POST" :

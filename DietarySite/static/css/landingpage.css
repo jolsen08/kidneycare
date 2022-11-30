@@ -76,28 +76,34 @@
   }
 }
 
-
-
+.custombody {
+  background-color: rgb(229, 239, 255);
+  color: #003481;
+}
+.containerouter {
+  width: 100vw;
+  height: 70vh;
+}
 .containercustom {
   display: inline-block;
   height: 40vh;
-  width: 66vw;
+  width: 30vw;
   /* line-height: 30vh; */
-  padding-right: var(--bs-gutter-x, 0.75rem);
-  padding-left: var(--bs-gutter-x, 0.75rem);
+  padding-right: 2rem;
+  padding-left: 2rem;
   margin-right: 3rem;
   margin-left: 3rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  background: linear-gradient(90deg, rgba(153,245,224,1) 35%, rgba(13,80,169,1) 100%);
-  padding-top: .75rem;
-  padding-bottom: 1rem;
-  border-radius: 1rem;
+  background-color: white ;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-radius: .55rem;
 }
 .containercustom2 {
   display: inline-block;
   height: 20vh;
-  width: 66vw;
+  width: 20vw;
   /* line-height: 30vh; */
   padding-right: var(--bs-gutter-x, 0.75rem);
   padding-left: var(--bs-gutter-x, 0.75rem);
