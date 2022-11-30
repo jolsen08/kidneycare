@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import Food
+from .models import FoodConsumption
  
 # Create your views here.
 def dashboardPageView(request):
-    data = Food.objects.all()
+    data = FoodConsumption.objects.all()
     context = {
         'data': data,
     }
