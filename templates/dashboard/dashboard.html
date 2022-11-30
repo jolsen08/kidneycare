@@ -52,7 +52,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{% static 'js/landingpage.js' %}"></script>
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <div class="containercustom">
+        <canvas id="myChart" width="200px" height="50px"></canvas>
 <script>
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
@@ -90,6 +91,7 @@ const myChart = new Chart(ctx, {
     }
 });
 </script>
+</div>
     </body>
 </html>
 <!--youre fat-->

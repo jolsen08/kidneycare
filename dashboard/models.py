@@ -31,9 +31,8 @@ class Person(models.Model) :
     # serum_blood_sugar_mg_per_dL = models.IntegerField(default="0")
 
 
-    # def __str__(self) :
-    #     full_name = self.first_name + ' ' + self.last_name
-    #     return(self.full_name)
+    def __str__(self) :
+        return(str(self.user))
 
     # @property
     # def full_name(self) :
