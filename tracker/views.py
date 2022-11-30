@@ -6,7 +6,8 @@ def trackerPageView(request):
     food = FoodConsumption.objects.all()
     context = {
         "person": data,
-        "food" : food
+        "food" : food,
+        "header" : ["Food Name","Date Consumed","Quantity"]
     }
     return render(request, 'tracker/tracker.html', context)
 
