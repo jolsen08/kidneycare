@@ -61,6 +61,7 @@ class Food(models.Model) :
     dv_phos_mg = models.IntegerField()
 
     def __str__(self) :
+        self.food_name = self.food_name.upper()
         return(self.food_name)
 
 class FoodConsumption(models.Model) :
