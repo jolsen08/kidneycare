@@ -42,9 +42,6 @@ class Person(models.Model) :
     # def save(self) :
     #     super(Person, self).save()
 
-    def __str__(self) :
-        return(self.user.first_name)
-
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -63,17 +60,15 @@ class Food(models.Model) :
     dv_k_mg = models.IntegerField()
     dv_phos_mg = models.IntegerField()
 
-    # def __str__(self) :
-    #     return(self.food_name)
+    def __str__(self) :
+        self.food_name = self.food_name.upper()
+        return(self.food_name)
 
 class FoodConsumption(models.Model) :
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     food_name = models.ForeignKey(Food, on_delete=models.CASCADE)
     date_consumed = models.DateField()
     quantity = models.IntegerField()
-
-    # def __str__(self) :
-    #     return(self.food_name)
 
 class WaterConsumption(models.Model) :
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
