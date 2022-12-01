@@ -11,7 +11,7 @@
         {% csrf_token %}
         {% comment %} <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"> {% endcomment %}
         <label for="food_name">Food Name:</label>
-        <input type="text" name="food_name" id="food_name" autofocus>
+        <input type="text" name="food_name" id="food_name" value="{{record.id}}">
         <br><br>
     
         <label for="dv_sodium_mg">mg of Sodium:</label>

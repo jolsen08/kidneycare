@@ -38,7 +38,7 @@ except (Exception, psycopg2.Error) as error:
     print("Error while fetching data from PostgreSQL", error)
 
 finally:
-        # closing database connection.
+    # closing database connection.
     if connection:
         cursor.close()
         connection.close()
