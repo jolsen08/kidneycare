@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Bare - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">KidneyCare</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  {% if user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Hi, {{user.first_name}}</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">Food Journal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tracker' %}">Health Tracker</a>
+                  </li>
+
+                  {% else %}
+
+                  {% endif %}
+                </li>
+              </ul>
+                <a class="nav-link" style = "color:white" href="{% url 'logout_user' %}">LOGOUT</a>
+            </div>
+          </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container">
+            <div class="text-center mt-5">
+                 {% if user.is_authenticated %}
+                    <h1>Hi, {{user.first_name}}</h1>
+                    <h1>You've successfully logged in</h1>
+                    <a href="{% url 'index' %}" class="btn btn-primary btn-lg">Continue</a>
+                 {% endif %}
+
+
+            </div>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/landingpage.js' %}"></script>
+    </body>
+</html>

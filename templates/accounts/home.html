@@ -1,67 +1,72 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <title>Login System</title>
-</head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+<style>
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    }
+</style>
 
+</head>
 <body>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="home">Kidney Care</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        {% if user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link" href="#">Hi, {{user.first_name}}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout_user' %}">LOGOUT</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'register' %}">SIGN UP</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'login_user' %}">LOGIN</a>
-        </li>
-        {% endif %}
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">KidneyCare</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="#">Hi, {{user.first_name}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout_user' %}">LOGOUT</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">SIGN UP</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login_user' %}">LOGIN</a>
+            </li>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
-
-  <div class="container my-3">
-    <h1 style="text-align:center;">Welcome to Kidney Care</h1>
-  </div>
-
-  <div class="card">
-    <div class="card-body">
-      <h3 style="text-align:center;">A website created to help those fighting kidney disease</h3>
-      <br>
-      <h6>Sign in for dietetic information and a food tracker built to help those fight CKD with additional power.</h6>
-      <h6>Our tools are based on the stage of CKD.</h6>
-      <br>
-      <h2 style="text-align:center;"></h2>
+  <header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 text-center">
+            <h1>Welcome to Kidney Care</h1> <br>
+            <h3>A website created to help those fighting kidney disease</h3>
+            <p>Please login to take advantage of our health tools</p>
+            &nbsp;<br>
+                <a href="{% url 'login_user' %}" class="btn btn-primary btn-lg">Login</a>
+        </div>
+      </div>
     </div>
-</body>
+  </header>
+<div style="text-align:center">
+    &nbsp;
 
+
+</div>
+</body>
 </html>

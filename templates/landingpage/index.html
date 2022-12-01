@@ -8,33 +8,113 @@
         <meta name="author" content="" />
         <title>Bare - Start Bootstrap Template</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="{% static 'assets/landingpage.ico' %}" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{% static 'css/landingpage.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+        <style>
+          .masthead {
+            height: 30vh;
+            min-height: 500px;
+            background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+        </style>
     </head>
     <body>
         <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="{% url 'index' %}">Kidney Care</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'tracker' %}">Food Journal</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Health Tracker</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'logout_user' %}">Logout</a></li>
-                    </ul>
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">KidneyCare</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+              <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                  {% if user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Hi, {{user.first_name}}</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">Food Journal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tracker' %}">Health Tracker</a>
+                  </li>
+
+                  {% else %}
+
+                  {% endif %}
+                </li>
+              </ul>
+                <a class="nav-link" style = "color:white" href="{% url 'logout_user' %}">LOGOUT</a>
             </div>
+          </div>
         </nav>
         <!-- Page content-->
+        <header class="masthead">
+          <div class="container h-100">
+            <div class="row h-100 align-items-center">
+              <div class="col-12 text-center">
+                <h1 class="fw-light">Vertically Centered Masthead Content</h1>
+                <p class="lead">A great starter layout for a landing page</p>
+              </div>
+            </div>
+          </div>
+        </header>
         <div class="container">
             <div class="text-center mt-5">
-                 {% if user.is_authenticated %}
-                    <h1>Hi, {{user.first_name}}</h1>
-                 {% endif %}
-                <p class="lead">A complete project boilerplate built with Bootstrap</p>
-                <p>Bootstrap v5.1.3</p>
+       
+                <h1>{{user.first_name}}, here are some articles we think you might like!</h1>
+                &nbsp;
+                <div class="d-flex p-2 justify-content-center flex-wrap">
+
+                  <div class="card border-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-body">
+                      <h4 class="card-title">Primary card title</h4>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+
+                  &nbsp;&nbsp;&nbsp;
+
+                  <div class="card border-primary mb-3" style="max-width: 20rem;">
+                    <div class="card-body">
+                      <h4 class="card-title">Primary card title</h4>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+
+                  &nbsp;&nbsp;&nbsp;
+
+                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                  <div class="card-body">
+                    <h4 class="card-title">Primary card title</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+
+                               &nbsp;&nbsp;&nbsp;
+
+                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                  <div class="card-body">
+                    <h4 class="card-title">Primary card title</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+
+                &nbsp;&nbsp;&nbsp;
+
+                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                  <div class="card-body">
+                    <h4 class="card-title">Primary card title</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
         </div>
         <!-- Bootstrap core JS-->
