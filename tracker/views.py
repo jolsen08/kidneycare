@@ -73,22 +73,21 @@ def addFoodData(request, user_id) :
     return render(request, 'tracker/food.html', context)
 
 def addConsumed(request, user_id) :
-    holder = FoodConsumption.objects.get(id = user_id)
-    data = FoodConsumption()
-    data2 = Food()
-    foods = data.food_name_id
+    data = FoodConsumption.objects.get(id = user_id)
+    foods = data.food_name  
     date_consumed = data.date_consumed
     quantity = data.quantity
+    foodavail = Food.food_name
 
 
-    avail_consume = Food.objects.exclude(id__in=Food.food_name)
+    #avail_consume = Food.objects.get(id__in=data.food_name)
 
     context = {
         "record" : data,
         "food" : foods,
         "date_consumed" : date_consumed, 
         "quantity" : quantity,
-        "avail" : avail_consume,
+        "avail" : foodavail,
     }
 
     return render(request, 'tracker/consume.html', context)
