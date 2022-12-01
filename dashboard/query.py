@@ -1,6 +1,6 @@
 import psycopg2
-import pandas as pd
-import seaborn as sns
+# import pandas as pd
+# import seaborn as sns
 import json
 
 try:
