@@ -17,7 +17,7 @@ def login_user(request):
 
         if user is not None:
             auth.login(request, user)
-            return render(request, 'landingpage/index.html')
+            return render(request, 'landingpage/loggedin.html')
         else:
             messages.info(request, 'Invalid Username or Password')
             return redirect('login_user')
