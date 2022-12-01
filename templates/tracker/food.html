@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="Form" method="post" action="{% url 'adduserfood' %}">
+        {% csrf_token %}
+        {% comment %} <input type="hidden" id="user_id" name="user_id" value="{{user.id}}"> {% endcomment %}
+        <label for="food_name">Food Name:</label>
+        <input type="text" name="food_name" id="food_name" autofocus>
+        <br><br>
+    
+        <label for="dv_sodium_mg">mg of Sodium:</label>
+        <input type="text" name="dv_sodium_mg" id="dv_sodium_mg">
+        <br><br>
+    
+        <label for="dv_protein_g_per_kg_body_weight">g Protein /Kg of Body Weight:</label>
+        <input type="text" name="dv_protein_g_per_kg_body_weight" id="dv_protein_g_per_kg_body_weight">
+        <br><br>
+    
+        <label for="dv_k_mg">mg of Potassium</label>
+        <input type="text" name="dv_k_mg" id="dv_k_mg">
+        <br><br>
+    
+        <label for="dv_phos_mg">mg of Phosphorus</label>
+        <input type="text" name="dv_phos_mg" id="dv_phos_mg">
+        <br><br>
+    
+        <button type="submit" oncl>Add</button>
+    </form> 
+</body>
+</html>
+

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{{query.py}}
 <html lang="en">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <head>
@@ -46,16 +47,17 @@
         <!-- Core theme JS-->
         <script src="{% static 'js/landingpage.js' %}"></script>
         <div class="containercustom">
-        <canvas id="myChart" width="200px" height="50px"></canvas>
+        <canvas id="myChart" width="200px" height="100px"></canvas>
 <script>
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [{% for data in data %} '{{data.date_consumed}}', {% endfor %}],
+        labels: [{% for data in data %} '{{data}}', {% endfor %}],
+        animationEnabled: true,
         datasets: [{
-            label: 'Food Consumption',
-            data: [{% for data in data %} '{{data.quantity}}', {% endfor %}],
+            label: 'MicroNutrient Consumption',
+            data: [{% for values in values %} '{{values}}', {% endfor %}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -77,9 +79,10 @@ const myChart = new Chart(ctx, {
     },
     options: {
         scales: {
-            y: {
-                beginAtZero: true
-            }
+            xAxes: [{
+                type: 'time',
+                distribution: 'linear'
+            }]
         }
     }
 });
@@ -87,4 +90,3 @@ const myChart = new Chart(ctx, {
 </div>
     </body>
 </html>
-<!--youre fat-->
