@@ -5,7 +5,7 @@ import json
 
 try:
     connection = psycopg2.connect(user="postgres",
-        password="admin123",
+        password="password",
         host="localhost",
         port="5432",
         database="intex2")
@@ -37,7 +37,7 @@ except (Exception, psycopg2.Error) as error:
     print("Error while fetching data from PostgreSQL", error)
 
 finally:
-    # closing database connection.
+        # closing database connection.
     if connection:
         cursor.close()
         connection.close()
