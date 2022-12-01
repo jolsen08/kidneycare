@@ -1,1 +1,1 @@
-"{datetime.date(2022, 10, 6): 6480.0, datetime.date(2022, 11, 5): 3010.0, datetime.date(2022, 11, 9): 1460.0, datetime.date(2022, 11, 11): 4050.0, datetime.date(2022, 11, 13): 1168.0, datetime.date(2022, 11, 19): 3240.0, datetime.date(2022, 11, 30): 12743.0}"
+"{datetime.date(2022, 10, 6): 236.0, datetime.date(2022, 11, 5): 238.0, datetime.date(2022, 11, 9): 4.0, datetime.date(2022, 11, 11): 236.0, datetime.date(2022, 11, 13): 4.0, datetime.date(2022, 11, 19): 236.0, datetime.date(2022, 11, 30): 952.0}"
