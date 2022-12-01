@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Tracker</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/landingpage.ico' %}" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/landingpage.css' %}" rel="stylesheet" />
+    </head>
+    <body style="text-align: center" class="custombody">
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">Kidney Care</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'tracker' %}">Food Journal</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %} ">Health Tracker</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout_user' %}">LOGOUT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page content-->
+    <div class="containerouter">
+    
+        <a href="">
+        <div class="containercustom2" style="justify-content: center">
+            <h1>Add Food</h1>
+            <a class="btn btn-primary" href="{% url 'fooddata' user_id=person.id %}">Add Food</a>
+            <a href="{% url 'editdetails' %}"><h1>Add Food</h1></a>
+            <br>
+            
+        </div>
+        <div class="containercustom2" style="justify-content: left">
+            <h1>Enter Food Consumed</h1>
+            <br>
+            <a class="btn btn-primary" href="{% url 'addconsumed' user_id=person.id %}">Enter Meal</a>
+            
+        </div>
+        </a>
+    </div>
+        <div class="containercustom2" style="justify-content: center">
+             {% comment %} {% for i in food %}
+             <p>{{i.food_name.food_name}}</p>
+            {% endfor %}
+            {% comment %} {{food}} 
+            {{user.id}}  {% endcomment %}
+
+            <table>
+                <thead>
+                    <tr>
+                        {% for k in header %}
+                        <th>{{k}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in food %}
+                        <tr>
+                            <td>{{r.food_name.food_name}}</td>
+                            <td>{{r.date_consumed}}</td>
+                            <td>{{r.quantity}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/landingpage.js' %}"></script>
+
+    </body>
+</html>

@@ -5,7 +5,7 @@ import json
 
 try:
     connection = psycopg2.connect(user="postgres",
-        password="password",
+        password="admin123",
         host="localhost",
         port="5432",
         database="intex2")

@@ -34,13 +34,13 @@
                 <li class="nav-item">
                   {% if user.is_authenticated %}
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Hi, {{user.first_name}}</a>
+                    <a class="nav-link" href="{% url 'accountdetails' %}">Account</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'dashboard' %}">Food Journal</a>
+                    <a class="nav-link" href="{% url 'tracker' %}">Food Journal</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'tracker' %}">Health Tracker</a>
+                    <a class="nav-link" href="{% url 'dashboard' %}">Health Tracker</a>
                   </li>
 
                   {% else %}
