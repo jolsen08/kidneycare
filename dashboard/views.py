@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render
+<<<<<<< HEAD
 # from .query import dictsodium, listsodium, dictk, listk, dictphos, listphos, dictprotein, listprotein
 import json
 import psycopg2
@@ -173,4 +174,20 @@ def dashboardPageView(request):
         'valuesprotein' : listprotein,
     }
     return render(request, 'dashboard/dashboard.html', context)
+=======
+# from .query import dictsodium, listsodium, dictk, listk
+# import json
+ 
+# # Create your views here.
+def dashboardPageView(request):
+#     datasodium = dictsodium
+    context = {
+#         'datasodium': datasodium,
+#         'valuessodium': listsodium,
+#         'datak' : dictk,
+#         'valuesk' : listk,
+    }
+    return render(request, 'dashboard/dashboard.html', context)
+#     print(data)
+>>>>>>> 25fea24b9870ad3dfd18c92f114bb4856ce91005
 

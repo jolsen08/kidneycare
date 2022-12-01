@@ -46,39 +46,35 @@
         <div class="container">
             <div class="text-center mt-5">
                  {% if user.is_authenticated %}
-                 {% endif %}
-                 <a href="{% url 'editdetails' %}" class="btn btn-primary">Search Food</a>
-                 <a href="{% url 'fooddata' user_id=person.id %}" class="btn btn-primary">Add Custom Food</a>
-                 <a href="{% url 'addconsumed' user_id=person.id %}" class="btn btn-primary">Add Consumption</a>
+                 <div class="card">
+                  <div class="card-body">
+                    <h1 class="card-title">Account Details</h1>
+                    <p class="card-text" style="text-align:left">
+                      <p>First Name: {{user.first_name}}</p>
+                      <p>Last Name: {{user.last_name}}</p>
+                      <p>Gender: {{user.person.gender}} </p>
+                      <p>Age: {{user.person.age}} </p>
+                      <p>Height: {{user.person.height_in}} </p>
+                      <p>Weight: {{user.person.weight_lbs}} </p>
+                      <a href="{% url 'pdetails' %}" style="">Edit Information</a>
+                    </p>
+                  </div>
+                </div>
                 <br><br>
-                 <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            {% for k in header %}
-                            <th>{{k}}</th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for r in food %}
-                              
-                          <tr class="table-success">
-                              <td>{{r.food_name.food_name}}</td>
-                              <td>{{r.date_consumed}}</td>
-                              <td>{{r.quantity}}</td>
-                          </tr>
-                        {% endfor %}
-                        {% for r in pastfood %}
-                            
-                          <tr class="table-secondary">
-                              <td>{{r.food_name.food_name}}</td>
-                              <td>{{r.date_consumed}}</td>
-                              <td>{{r.quantity}}</td>
-                          </tr>
-                        {% endfor %}
+                <div class="card">
+                  <div class="card-body">
+                    <h1 class="card-title">Serum Levels</h1>
+                    <p class="card-text" style="text-align:left">
+                      <p>Serum Level 1:</p>
+                      <p>Serum Level 2:</p>
+                      <p>Serum Level 3: </p>
+                      <a href="" style="">Update Serum Level</a>
+                    </p>
+                  </div>
+                </div>
+                 {% endif %}
 
-                    </tbody>
-                </table>
+
             </div>
         </div>
         <!-- Bootstrap core JS-->

@@ -10,12 +10,17 @@ def trackerPageView(request):
     # user = Person.objects.get(user_id=id)
     id = request.user.id
     user = Person.objects.get(user_id = id)
-    food = FoodConsumption.objects.filter(person_id = id)
+    today = datetime.today()
+    food = FoodConsumption.objects.filter(person_id = id, date_consumed = today)
+    pastfood = FoodConsumption.objects.filter(person_id = id).exclude(date_consumed = today)
+
+    
 
     context = {
         "person": user,
         "food" : food,
-        "header" : ["Food Name","Date Consumed","Quantity"]
+        "header" : ["Food Name","Date Consumed","Quantity"],
+        "pastfood" : pastfood
     }
     return render(request, 'tracker/tracker.html', context)
 
@@ -48,9 +53,8 @@ def addFoodConsumed(request) :
 
 
 
-def addFoodData(request, user_id) :
-    holder = FoodConsumption.objects.get(id = user_id)
-    data = Food()
+def addFoodData(request, food_name) :
+    data = Food.objects.get(id = food_name)
     foods = data.food_name
     sodium = data.dv_sodium_mg
     protein = data.dv_protein_g_per_kg_body_weight
@@ -74,13 +78,22 @@ def addFoodData(request, user_id) :
 
 def addConsumed(request, user_id) :
     data = FoodConsumption.objects.get(id = user_id)
+<<<<<<< HEAD
     foods = data.food_name  
     date_consumed = data.date_consumed
+=======
+    foods = data.food_name
+    date_consumed = data.date_consumed.all()
+>>>>>>> 25fea24b9870ad3dfd18c92f114bb4856ce91005
     quantity = data.quantity
     foodavail = Food.food_name
 
 
+<<<<<<< HEAD
     #avail_consume = Food.objects.get(id__in=data.food_name)
+=======
+    avail_consume = Food.objects.get(id__in=data.food_name)
+>>>>>>> 25fea24b9870ad3dfd18c92f114bb4856ce91005
 
     context = {
         "record" : data,

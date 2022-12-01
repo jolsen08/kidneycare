@@ -1,12 +1,21 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
+
 from dashboard.models import Person
 
 
 
 def home(request):
     return render(request, 'accounts/home.html')
+
+def account_details(request):
+    id = request.user.id
+    user = Person.objects.get(user_id = id)
+    context = {
+        "user" : user
+    }
+    return render(request, 'accounts/accountdetails.html')    
     
 def login_user(request):
     if request.method == 'POST':
@@ -70,7 +79,7 @@ def registerdetails(request):
         user.weight_lbs = request.POST['weight']
 
         user.save() 
-        return render(request, 'landingpage/index.html')
+        return render(request, 'accounts/accountdetails.html')
     else:
         return render(request, 'accounts/registration.html')
 
