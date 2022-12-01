@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form name="Form" method="post" action="{% url 'addconsumption' %}">
+        {% csrf_token %}
+        <input type="hidden" id="user_id" name="user_id" value="{{record.id}}">
+    
+        <label for="food_name">Select the Food to Add</label>
+        <select name="food_name" id="food_name">
+            {% for food in avail %}
+            <option value="{{ food.user_id }}">{{food.name}}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+    
+        <label for="date_consumed">Date Consumed:</label>
+        <input type="text" name="date_consumed" id="date_consumed">
+        <br><br>
+    
+        <label for="quantity">Quantity Consumed:</label>
+        <input type="text" name="quantity" id="quantity">
+        <br><br>
+    
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+

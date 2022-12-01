@@ -57,10 +57,10 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Food(models.Model) :
     food_name = models.CharField(max_length=100)
-    dv_sodium_mg = models.IntegerField()
+    dv_sodium_mg = models.FloatField()
     dv_protein_g_per_kg_body_weight = models.FloatField()
-    dv_k_mg = models.IntegerField()
-    dv_phos_mg = models.IntegerField()
+    dv_k_mg = models.FloatField()
+    dv_phos_mg = models.FloatField()
 
     def __str__(self) :
         self.food_name = self.food_name.upper()

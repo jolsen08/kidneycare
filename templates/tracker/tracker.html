@@ -21,7 +21,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'tracker' %}">Food Journal</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Health Tracker</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %} ">Health Tracker</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'logout_user' %}">LOGOUT</a></li>
                     </ul>
                 </div>
@@ -49,46 +49,24 @@
         <a href="">
         <div class="containercustom2" style="justify-content: center">
             <h1>Add Food</h1>
+            <a class="btn btn-primary" href="{% url 'fooddata' user_id=person.id %}">Add Food</a>
             <br>
-            {% comment %} <form name="Form" method="post" action="{% url 'addFood' %}">
-                {% csrf_token %}
-                <input type="hidden" id="user_id" name="user_id" value="{{user.id}}">
-
-                <label for="food_name">Food Name:</label>
-                <input type="text" name="food_name" id="food_name" autofocus>
-                <br><br>
-
-                <label for="quantity">Quantity:</label>
-                <input type="text" name="quantity" id="quantity">
-                <br><br>
-
-                <label for="dv_sodium_mg">mg of Sodium:</label>
-                <input type="text" name="dv_sodium_mg" id="dv_sodium_mg">
-                <br><br>
-
-                <label for="dv_protein_g_per_kg_body_weight">g Protein /Kg of Body Weight:</label>
-                <input type="text" name="dv_protein_g_per_kg_body_weight" id="dv_protein_g_per_kg_body_weight">
-                <br><br>
-
-                <label for="dv_k_mg">mg of Potassium</label>
-                <input type="text" name="dv_k_mg" id="dv_k_mg">
-                <br><br>
-
-                <label for="dv_phos_mg">mg of Phosphorus</label>
-                <input type="text" name="dv_phos_mg" id="dv_phos_mg">
-                <br><br>
-
-                <button type="submit">Add</button>
-            </form> {% endcomment %}
+            
+        </div>
+        <div class="containercustom2" style="justify-content: left">
+            <h1>Enter Food Consumed</h1>
+            <br>
+            <a class="btn btn-primary" href="{% url 'addconsumed' user_id=person.id %}">Enter Meal</a>
+            
         </div>
         </a>
     </div>
         <div class="containercustom2" style="justify-content: center">
-            {% comment %} {% for i in food %}
+             {% comment %} {% for i in food %}
              <p>{{i.food_name.food_name}}</p>
             {% endfor %}
             {% comment %} {{food}} 
-            {{user.id}} {% endcomment %}
+            {{user.id}}  {% endcomment %}
 
             <table>
                 <thead>

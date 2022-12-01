@@ -20,22 +20,66 @@ def trackerPageView(request):
     return render(request, 'tracker/tracker.html', context)
 
 
-# def addUserFoodPageView(request):
-#     if request.method == "POST" :
-#         id = request.POST['user_id']
-#         quantity = FoodConsumption.objects.get(quantity = quantity)
-#         food = Food.objects.get(user_id = id)
-#         food.food_name = request.POST['food_name']
-#         food.dv_sodium_mg = request.POST['dv_sodium_mg']
-#         food.dv_protein_g_per_kg_body_weight = request.POST['dv_protein_g_per_kg_body_weight']
-#         food.dv_k_mg = request.POST['dv_k_mg']
-#         food.dv_phos_mg = request.POST['dv_phos_mg']
+def addUserFoodPageView(request):
+    if request.method == "POST" :
+        # id = request.POST['user_id']
+        # quantity = FoodConsumption.objects.get(quantity = quantity)
+        food = Food()
+        food.food_name = request.POST['food_name']
+        food.dv_sodium_mg = request.POST['dv_sodium_mg']
+        food.dv_protein_g_per_kg_body_weight = request.POST['dv_protein_g_per_kg_body_weight']
+        food.dv_k_mg = request.POST['dv_k_mg']
+        food.dv_phos_mg = request.POST['dv_phos_mg']
 
-#         food.save()
+        food.save()
+    return render(request, 'tracker/food.html')
 
-#         return render(request, 'tracker/tracker.html')
+def addFoodConsumed(request) :
+    if request.method == "POST" :
+        person_id = request.POST['user_id']
+        consumed = FoodConsumption.objects.get(user_id=person_id)
 
-#     else :
-#         return render(request, 'tracker/tracker.html')
+        food = request.POST['food_name']
+        consumed.food_name.add(Food.objects.get(id=food))
+        consumed.date_consumed = request.POST['date_consumed']
+        consumed.quantity = request.POST['quantity']
+    
+    return render(request, 'tracker/consume.html')
 
-# Create your views here.
+def addConsumed(request, user_id) :
+    data = FoodConsumption.objects.get(id = user_id)
+    foods = data.food_name
+
+    avail_food = Food.objects.exclude(id__in=data.food_name)
+
+    context = {
+        "record" : data,
+        "food" : foods,
+        "avail" : avail_food
+    }
+
+    return render(request, 'tracker/consume.html', context)
+
+def addFoodData(request, user_id) :
+    holder = FoodConsumption.objects.get(id = user_id)
+    data = Food()
+    foods = data.food_name
+    sodium = data.dv_sodium_mg
+    protein = data.dv_protein_g_per_kg_body_weight
+    k = data.dv_k_mg
+    phos = data.dv_phos_mg
+
+
+    avail_food = Food.objects.exclude(id__in=data.food_name)
+
+    context = {
+        "record" : data,
+        "food" : foods,
+        "sodium" : sodium,
+        "protein" : protein,
+        "k" : k,
+        "phos" : phos,
+        "avail" : avail_food
+    }
+
+    return render(request, 'tracker/food.html', context)
