@@ -82,9 +82,13 @@ WSGI_APPLICATION = 'DietarySite.wsgi.application'
 DATABASES = {
      'default': {
      'ENGINE': 'django.db.backends.postgresql',
-     'NAME': 'intex2',
+     'NAME': 'intextest',
      'USER': 'postgres',
+<<<<<<< HEAD
      'PASSWORD': 'admin123',
+=======
+     'PASSWORD': 'music',
+>>>>>>> 483dff5a8f827b9d0b1e31f9d4a7d171fb0a338b
      'HOST': 'localhost'
      }
  }  

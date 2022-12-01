@@ -58,7 +58,7 @@ def addFoodData(request, user_id) :
     phos = data.dv_phos_mg
 
 
-    avail_food = FoodConsumption.objects.exclude(id__in=FoodConsumption.food_name)
+    # avail_food = FoodConsumption.objects.exclude(id__in=FoodConsumption.food_name)
 
     context = {
         "record" : data,
@@ -67,7 +67,7 @@ def addFoodData(request, user_id) :
         "protein" : protein,
         "k" : k,
         "phos" : phos,
-        "avail" : avail_food
+        # "avail" : avail_food
     }
 
     return render(request, 'tracker/food.html', context)
