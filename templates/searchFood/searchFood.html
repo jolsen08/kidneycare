@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<title>SIGNUP</title>
+</head>
+
+<body>
+	<form action="/editdetails/searchfood" method="POST" class="form-horizontal">
+		{% csrf_token%}
+		<div class="mx-auto" style="width: 400px;">
+
+			<div class="col-xs-8 col-xs-offset-4">
+				<h2 style="text-align:center;">SEARCH FOOD</h2>
+			</div>
+			<hr />
+			<div class="form-group">
+				<label for="age">Age</label>
+				<input type="text" class="form-control" name="query" id="query" placeholder="Search Food"
+					Required>
+			</div>
+			</div>
+			<button type="submit" class="btn btn-primary">SUBMIT</button>
+		</div>
+	</form>
+	<div>
+        {% if api_url != "" %}
+            <table>
+            <thead>
+                    <tr>
+                        {% for k in header %}
+                        <th>{{k}}</th>
+                        {% endfor %}
+
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            
+                            <td>
+                                <form action="">
+                                    <input type="hidden" >
+                                    <p><a href="{% url 'searchfood' %}" class="btn"> Add </a></p>
+                                    </form>
+                            </td>
+                            <td> 
+                                 {{name}}
+                            </td>
+
+                            <td> &nbsp;
+                            {{proteinval}} {{proteinunit}}
+                            </td>
+
+                            <td>
+                            {{waterval}} {{waterunit}}
+                            </td>
+                            <td>
+                            {{phosval}} {{phosunit}}
+                            </td>
+
+                        </tr>
+                </tbody>
+            </table>
+        {% else %}
+            No search results
+        {% endif %} 
+
+	</div>
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
+

@@ -48,7 +48,7 @@
         </div>
         <a href="">
         <div class="containercustom2" style="justify-content: center">
-            <h1>Add Food</h1>
+            <a href="{% url 'editdetails' %}"><h1>Add Food</h1></a>
             <br>
             {% comment %} <form name="Form" method="post" action="{% url 'addFood' %}">
                 {% csrf_token %}
