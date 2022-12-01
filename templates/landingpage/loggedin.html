@@ -48,6 +48,7 @@
                  {% if user.is_authenticated %}
                     <h1>Hi, {{user.first_name}}</h1>
                     <h1>You've successfully logged in</h1>
+                    <br><br>
                     <a href="{% url 'index' %}" class="btn btn-primary btn-lg">Continue</a>
                  {% endif %}
 

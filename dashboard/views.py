@@ -1,6 +1,5 @@
 import json
 from django.shortcuts import render
-<<<<<<< HEAD
 # from .query import dictsodium, listsodium, dictk, listk, dictphos, listphos, dictprotein, listprotein
 import json
 import psycopg2
@@ -8,7 +7,7 @@ import psycopg2
 def dashboardPageView(request):
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
@@ -41,7 +40,7 @@ def dashboardPageView(request):
     #sodium
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
@@ -73,7 +72,7 @@ def dashboardPageView(request):
     #k
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
@@ -105,7 +104,7 @@ def dashboardPageView(request):
     #phos
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
@@ -137,7 +136,7 @@ def dashboardPageView(request):
     #protein
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
@@ -174,20 +173,8 @@ def dashboardPageView(request):
         'valuesprotein' : listprotein,
     }
     return render(request, 'dashboard/dashboard.html', context)
-=======
-# from .query import dictsodium, listsodium, dictk, listk
-# import json
- 
-# # Create your views here.
-def dashboardPageView(request):
-#     datasodium = dictsodium
-    context = {
-#         'datasodium': datasodium,
-#         'valuessodium': listsodium,
-#         'datak' : dictk,
-#         'valuesk' : listk,
-    }
-    return render(request, 'dashboard/dashboard.html', context)
-#     print(data)
->>>>>>> 25fea24b9870ad3dfd18c92f114bb4856ce91005
 
+# def dailyBars(request):
+#     class.objects.get
+
+#     return("A") 
