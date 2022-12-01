@@ -1,14 +1,16 @@
 import json
 from django.shortcuts import render
-from .query import dict, list
+from .query import dictsodium, listsodium, dictk, listk
 import json
  
 # Create your views here.
 def dashboardPageView(request):
-    data = dict
+    datasodium = dictsodium
     context = {
-        'data': data,
-        'values': list
+        'datasodium': datasodium,
+        'valuessodium': listsodium,
+        'datak' : dictk,
+        'valuesk' : listk,
     }
     return render(request, 'dashboard/dashboard.html', context)
     print(data)
