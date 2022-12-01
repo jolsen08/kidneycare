@@ -10,13 +10,17 @@ def trackerPageView(request):
     # user = Person.objects.get(user_id=id)
     id = request.user.id
     user = Person.objects.get(user_id = id)
-    food = FoodConsumption.objects.filter(person_id = id,)
+    today = datetime.today()
+    food = FoodConsumption.objects.filter(person_id = id, date_consumed = today)
+    pastfood = FoodConsumption.objects.filter(person_id = id).exclude(date_consumed = today)
+
     
 
     context = {
         "person": user,
         "food" : food,
-        "header" : ["Food Name","Date Consumed","Quantity"]
+        "header" : ["Food Name","Date Consumed","Quantity"],
+        "pastfood" : pastfood
     }
     return render(request, 'tracker/tracker.html', context)
 

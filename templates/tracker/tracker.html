@@ -46,7 +46,6 @@
         <div class="container">
             <div class="text-center mt-5">
                  {% if user.is_authenticated %}
-
                  {% endif %}
                  <a href="{% url 'editdetails' %}" class="btn btn-primary">Search Food</a>
                  <a href="{% url 'fooddata' user_id=person.id %}" class="btn btn-primary">Add Custom Food</a>
@@ -62,12 +61,22 @@
                     </thead>
                     <tbody>
                         {% for r in food %}
-                            <tr class="table-secondary">
-                                <td>{{r.food_name.food_name}}</td>
-                                <td>{{r.date_consumed}}</td>
-                                <td>{{r.quantity}}</td>
-                            </tr>
+                              
+                          <tr class="table-success">
+                              <td>{{r.food_name.food_name}}</td>
+                              <td>{{r.date_consumed}}</td>
+                              <td>{{r.quantity}}</td>
+                          </tr>
                         {% endfor %}
+                        {% for r in pastfood %}
+                            
+                          <tr class="table-secondary">
+                              <td>{{r.food_name.food_name}}</td>
+                              <td>{{r.date_consumed}}</td>
+                              <td>{{r.quantity}}</td>
+                          </tr>
+                        {% endfor %}
+
                     </tbody>
                 </table>
             </div>
