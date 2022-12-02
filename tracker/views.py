@@ -6,13 +6,11 @@ from django.contrib.auth.models import User, auth
 from datetime import datetime, timedelta, time, date
 
 def trackerPageView(request):
-    # data = Person.objects.all()
-    # user = Person.objects.get(user_id=id)
     id = request.user.id
     user = Person.objects.get(user_id = id)
     today = datetime.today()
     food = FoodConsumption.objects.filter(person_id = id, date_consumed = today)
-    pastfood = FoodConsumption.objects.filter(person_id = id).exclude(date_consumed = today)
+    pastfood = FoodConsumption.objects.filter(person_id = id).exclude(date_consumed = today).order_by('-date_consumed')
 
     
 
@@ -39,42 +37,23 @@ def addUserFoodPageView(request):
         food.save()
     return render(request, 'tracker/food.html')
 
-def addFoodConsumed(request) :
-    if request.method == "POST" :
-        person_id = request.POST['user_id']
-        consumed = FoodConsumption.objects.get(user_id=person_id)
+# def addFoodConsumed(request) :
+#     if request.method == "POST" :
+#         person_id = request.POST['user_id']
+#         consumed = FoodConsumption.objects.get(user_id=person_id)
 
-        food = request.POST['food_name']
-        consumed.food_name.add(Food.objects.get(id=food))
-        consumed.date_consumed = request.POST['date_consumed']
-        consumed.quantity = request.POST['quantity']
+#         food = request.POST['food_name']
+#         consumed.food_name.add(Food.objects.get(id=food))
+#         consumed.date_consumed = request.POST['date_consumed']
+#         consumed.quantity = request.POST['quantity']
     
-    return render(request, 'tracker/consume.html')
+#     return render(request, 'tracker/consume.html')
 
 
 
-def addFoodData(request, food_name) :
-    data = Food.objects.get(id = food_name)
-    foods = data.food_name
-    sodium = data.dv_sodium_mg
-    protein = data.dv_protein_g_per_kg_body_weight
-    k = data.dv_k_mg
-    phos = data.dv_phos_mg
+def addFoodView(request) :
 
-
-    # avail_food = FoodConsumption.objects.exclude(id__in=FoodConsumption.food_name)
-
-    context = {
-        "record" : data,
-        "food" : foods,
-        "sodium" : sodium,
-        "protein" : protein,
-        "k" : k,
-        "phos" : phos,
-        # "avail" : avail_food
-    }
-
-    return render(request, 'tracker/food.html', context)
+    return render(request, 'tracker/addcustomfood.html')
 
 def addConsumed(request, user_id) :
     data = FoodConsumption.objects.get(id = user_id)

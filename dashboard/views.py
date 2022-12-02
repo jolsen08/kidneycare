@@ -3,6 +3,11 @@ from django.shortcuts import render
 # from .query import dictsodium, listsodium, dictk, listk, dictphos, listphos, dictprotein, listprotein
 import json
 import psycopg2
+from django.db.models import Sum
+from dashboard.models import FoodConsumption, Food, Person
+from datetime import datetime, timedelta, time, date
+
+
 
 def dashboardPageView(request):
     try:
@@ -162,6 +167,33 @@ def dashboardPageView(request):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
+    totalsod,totalk,totalpro,totalphos,pctphos,pctsod,pctk,pctpro,proteinmax = dailyBars(request)
+    protcolor = "bg-success"
+    phoscolor = "bg-success"
+    sodcolor = "bg-success"
+    potasscolor = "bg-success"
+
+    if pctphos > 100:
+        phoscolor = "bg-danger"
+    elif pctphos > 75:
+        phoscolor = "bg-warning"
+
+    if pctsod > 100:
+        sodcolor = "bg-danger"
+    elif pctsod > 75:
+        sodcolor = "bg-warning"
+
+    if pctk > 100:
+        potasscolor = "bg-danger"
+    elif pctk > 75:
+        potasscolor = "bg-warning"
+
+    if pctpro > 100:
+        protcolor = "bg-danger"
+    elif pctpro > 75:
+        protcolor = "bg-warning"
+        
+           
     context = {
         'datasodium': dictsodium,
         'valuessodium': listsodium,
@@ -171,10 +203,66 @@ def dashboardPageView(request):
         'valuesphos' : listphos,
         'dataprotein' : dictprotein,
         'valuesprotein' : listprotein,
-    }
+
+        'totalsod' : totalsod,
+        'totalk' : totalk,
+        'totalpro' : totalpro,
+        'totalphos' : totalphos,
+
+        'pctphos' : pctphos, 
+        'pctsod' : pctsod,
+        'pctk' : pctk,  
+        'pctpro' : pctpro,  
+        'proteinmax' : proteinmax, 
+
+        'protcolor' : protcolor,
+        'phoscolor' : phoscolor,
+        'sodcolor' : sodcolor,
+        'potasscolor' : potasscolor,
+
+          }
     return render(request, 'dashboard/dashboard.html', context)
 
-# def dailyBars(request):
-#     class.objects.get
+def dailyBars(request):
+    # get current total value of sodium
+    id = request.user.id
+    totalsod = 0
+    totalk = 0
+    totalpro = 0
+    totalphos = 0
+    today = datetime.today()
+    personresult = Person.objects.filter(id = id)
+    weight = personresult[0].weight_lbs
+    foodComp = FoodConsumption.objects.select_related('person', 'food_name').filter(person_id = id,date_consumed = today)
+    # for i in foodComp:
+    for i in foodComp:
+        totalsod = totalsod + (i.food_name.dv_sodium_mg * i.quantity)
+    for i in foodComp:
+        totalk = totalk + (i.food_name.dv_k_mg * i.quantity)
+    for i in foodComp:
+        totalphos= totalphos+ (i.food_name.dv_phos_mg * i.quantity)
+    for i in foodComp:
+       totalpro = totalpro + (i.food_name.dv_protein_g_per_kg_body_weight * i.quantity)
 
-#     return("A") 
+    proteinconsump = weight * 0.6
+    pctpro = totalpro/proteinconsump
+    pctsod = round((totalsod/2000)*100,2)
+    pctk = (totalk/2750)*100
+    pctphos = (totalphos/900)*100
+    proteinmax =  proteinconsump
+
+    context = {
+        "totalsod" : totalsod,
+        "totalk" : totalk,
+        "totalpro" : totalpro,
+        "totalphos" : totalphos,
+        "pctsod" : round((totalsod/2000)*100,2),
+        "pctk" : (totalk/2750)*100,
+        "pctpro" : pctpro,
+        "pctphos" : (totalphos/900)*100,
+        "proteinmax" : proteinconsump
+
+    }
+
+    return totalsod,totalk,totalpro,totalphos,pctphos,pctsod,pctk,pctpro,proteinmax
+    # required values & current daily amounts

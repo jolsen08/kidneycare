@@ -48,12 +48,12 @@
                  {% if user.is_authenticated %}
                  {% endif %}
                  <a href="{% url 'editdetails' %}" class="btn btn-primary">Search Food</a>
-                 <a href="{% url 'fooddata' user_id=person.id %}" class="btn btn-primary">Add Custom Food</a>
-                 <a href="{% url 'addconsumed' user_id=person.id %}" class="btn btn-primary">Add Consumption</a>
+                 <a href="{% url 'fooddata'%}" class="btn btn-primary">Add Custom Food</a>
+                 {% comment %} <a href="{% url 'addconsumed' user_id=person.id %}" class="btn btn-primary">Add Consumption</a> {% endcomment %}
                 <br><br>
                  <table class="table table-hover">
                     <thead>
-                        <tr>
+                        <tr class="table-secondary">
                             {% for k in header %}
                             <th>{{k}}</th>
                             {% endfor %}

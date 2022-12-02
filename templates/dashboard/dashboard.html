@@ -50,27 +50,37 @@
         <div class="container">
             <div class="text-center mt-5">
               <h1>Daily Tracker</h1>
+
+              {% if pctsod > 100 or pctk  > 100 or pctphos > 100 or pctpro > 100%}
+              <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>It looks like you've exceeded one of your daily reccommendations!</strong> <a href="{% url 'index' %}" class="alert-link">Here are some articles</a> to reach your nutrition goals!
+              </div>
+              {% endif %}
+
+
+
               <h6 style="text-align:left">Sodium</h6>
               <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar progress-bar-striped {{sodcolor}}" role="progressbar" style="width:{{pctsod}}%;" aria-valuenow="{{totalsod}}" aria-valuemin="0" aria-valuemax="100">{{totalsod}}/2300</div>
               </div>
               <br>
 
               <h6 style="text-align:left">Potassium</h6>
               <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar progress-bar-striped {{potasscolor}}" role="progressbar" style="width: {{pctk}}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">{{totalk}}/2750</div>
               </div>
               <br>
 
               <h6 style="text-align:left">Phosphorus</h6>
               <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar progress-bar-striped {{phoscolor}}" role="progressbar" style="width: {{pctphos}}%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{{totalphos}}/900</div>
               </div>
               <br>
 
               <h6 style="text-align:left">Protein</h6>
               <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar progress-bar-striped {{protcolor}}" role="progressbar" style="width: {{pctpro}}%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{totalpro}}</div>
               </div>
 
               <br><br><br>

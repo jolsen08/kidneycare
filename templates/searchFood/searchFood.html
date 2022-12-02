@@ -1,19 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
+{% load static %}
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Bare - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid">
+			  <a class="navbar-brand" href="{% url 'index' %}">KidneyCare</a>
+			  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarColor01">
+				<ul class="navbar-nav me-auto">
+				  <li class="nav-item">
+					{% if user.is_authenticated %}
+					<li class="nav-item">
+					  <a class="nav-link" href="{% url 'accountdetails' %}">Account</a>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link" href="{% url 'tracker' %}">Food Journal</a>
+					</li>
+					<li class="nav-item">
+					  <a class="nav-link" href="{% url 'dashboard' %}">Health Tracker</a>
+					</li>
+  
+					{% else %}
+  
+					{% endif %}
+				  </li>
+				</ul>
+				  <a class="nav-link" style = "color:white" href="{% url 'logout_user' %}">LOGOUT</a>
+			  </div>
+			</div>
+		  </nav>
+		  <br><br>
 
-<head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-	<title>SIGNUP</title>
-</head>
-
-<body>
 	<form action="/editdetails/searchfood" method="POST" class="form-horizontal">
 		{% csrf_token%}
 		<div class="mx-auto" style="width: 400px;">
@@ -21,34 +51,36 @@
 			<div class="col-xs-8 col-xs-offset-4">
 				<h2 style="text-align:center;">SEARCH FOOD</h2>
 			</div>
-			<hr />
+			<br>
 			<div class="form-group">
-				<label for="age">Age</label>
+				<label for="age"></label>
 				<input type="text" class="form-control" name="query" id="query" placeholder="Search Food"
 					Required>
 			</div>
 			</div>
-			<button type="submit" class="btn btn-primary">SUBMIT</button>
+			<br>
+			<button type="submit" class="btn btn-primary" style= "left: 50%; transform: translateX(-50%)">SUBMIT</button>
 		</div>
+		<br><br>
 	</form>
 	<div>
         {% if api_url != "" %}
-            <table>
+            <table class="table table-hover">
             <thead>
-                    <tr>
+                    <tr class="table-info">
                         {% for k in header %}
                         <th>{{k}}</th>
                         {% endfor %}
 
                     </tr>
-                </thead>
-                <tbody>
-                        <tr>
+            </thead>
+            <tbody>
+                        <tr class="table-secondary">
                             
                             <td>
                                 <form action="">
                                     <input type="hidden" >
-                                    <p><a href="{% url 'searchfood' %}" class="btn"> Add </a></p>
+                                    <p><a href="{% url 'searchfood' %}" class="btn btn-primary btn-sm"> Add </a></p>
                                     </form>
                             </td>
                             <td> 
@@ -67,27 +99,17 @@
                             </td>
 
                         </tr>
-                </tbody>
+            </tbody>
             </table>
         {% else %}
             No search results
         {% endif %} 
 
-	</div>
-
-
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
+	</div>	
+	<body>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="{% static 'js/landingpage.js' %}"></script>
 </body>
-
 </html>
-
