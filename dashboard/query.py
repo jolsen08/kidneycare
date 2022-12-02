@@ -5,21 +5,12 @@ import json
 
 def querydashboard() :
 #totals
-<<<<<<< HEAD
     try:
         connection = psycopg2.connect(user="postgres",
             password="password",
             host="localhost",
             port="5432",
             database="intex2")
-=======
-try:
-    connection = psycopg2.connect(user="postgres",
-        password="admin123",
-        host="localhost",
-        port="5432",
-        database="intex2")
->>>>>>> 25fea24b9870ad3dfd18c92f114bb4856ce91005
 
         cursor = connection.cursor()
         postgreSQL_select_Query = "select date_consumed, (sodium + k + protein + phos) as total from (select date_consumed, sum(dv_sodium_mg * quantity) as sodium, sum(dv_protein_g_per_kg_body_weight * quantity) as protein, sum(dv_k_mg * quantity) as k, sum(dv_phos_mg * quantity) as phos from dashboard_foodconsumption inner join dashboard_food on dashboard_foodconsumption.food_name_id = dashboard_food.id group by date_consumed order by date_consumed)sq1 order by date_consumed"
@@ -47,21 +38,12 @@ try:
     except (Exception, psycopg2.Error) as error:
         print("Error while fetching data from PostgreSQL", error)
 
-<<<<<<< HEAD
     finally:
             # closing database connection.
         if connection:
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
-=======
-finally:
-    # closing database connection.
-    if connection:
-        cursor.close()
-        connection.close()
-        print("PostgreSQL connection is closed")
->>>>>>> 25fea24b9870ad3dfd18c92f114bb4856ce91005
 
 
     #sodium
@@ -106,7 +88,6 @@ finally:
             print("PostgreSQL connection is closed")
 
 
-<<<<<<< HEAD
     #k
     try:
         connection = psycopg2.connect(user="postgres",
@@ -114,15 +95,6 @@ finally:
             host="localhost",
             port="5432",
             database="intex2")
-=======
-#k
-try:
-    connection = psycopg2.connect(user="postgres",
-        password="admin123",
-        host="localhost",
-        port="5432",
-        database="intex2")
->>>>>>> 25fea24b9870ad3dfd18c92f114bb4856ce91005
 
         cursor = connection.cursor()
         postgreSQL_select_Query = "select date_consumed, sum(dv_k_mg) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"

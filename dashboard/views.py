@@ -10,10 +10,11 @@ from datetime import datetime, timedelta, time, date
 
 
 def dashboardPageView(request):
+  
     # totals
     try:
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
@@ -31,6 +32,8 @@ def dashboardPageView(request):
         for row in mobile_records:
             dicttotal[row[0]] = row[1]
             listtotal.append(dicttotal[row[0]])
+        
+        print(dicttotal)
 
     except (Exception, psycopg2.Error) as error:
         print("Error while fetching data from PostgreSQL", error)
@@ -45,16 +48,17 @@ def dashboardPageView(request):
 
     #sodium
     try:
+        id = request.user.id
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
 
         cursor = connection.cursor()
-        postgreSQL_select_Query = "select date_consumed, sum(dv_sodium_mg * quantity) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, dfc.person_id order by date_consumed"
+        postgreSQL_select_Query = "select date_consumed, sodiumsum from (select date_consumed, person_id, sum(dv_sodium_mg * quantity) as sodiumsum from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, person_id order by date_consumed)sq1 where sq1.person_id = %(id)s;"
 
-        cursor.execute(postgreSQL_select_Query)
+        cursor.execute(postgreSQL_select_Query,{'id':id})
         mobile_records = cursor.fetchall()
 
         listsodium = []
@@ -77,16 +81,17 @@ def dashboardPageView(request):
 
     #k
     try:
+        id = request.user.id
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
 
         cursor = connection.cursor()
-        postgreSQL_select_Query = "select date_consumed, sum(dv_k_mg * quantity) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"
+        postgreSQL_select_Query = "select date_consumed, ksum from (select date_consumed, person_id, sum(dv_k_mg * quantity) as ksum from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, person_id order by date_consumed)sq1 where sq1.person_id = %(id)s;"
 
-        cursor.execute(postgreSQL_select_Query)
+        cursor.execute(postgreSQL_select_Query,{'id':id})
         mobile_records = cursor.fetchall()
 
         listk = []
@@ -109,16 +114,17 @@ def dashboardPageView(request):
 
     #phos
     try:
+        id = request.user.id
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
 
         cursor = connection.cursor()
-        postgreSQL_select_Query = "select date_consumed, sum(dv_phos_mg * quantity) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"
+        postgreSQL_select_Query = "select date_consumed, phossum from (select date_consumed, person_id, sum(dv_phos_mg * quantity) as phossum from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, person_id order by date_consumed)sq1 where sq1.person_id = %(id)s;"
 
-        cursor.execute(postgreSQL_select_Query)
+        cursor.execute(postgreSQL_select_Query,{'id':id})
         mobile_records = cursor.fetchall()
 
         listphos = []
@@ -141,16 +147,17 @@ def dashboardPageView(request):
 
     #protein
     try:
+        id = request.user.id
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
 
         cursor = connection.cursor()
-        postgreSQL_select_Query = "select date_consumed, sum(dv_protein_g_per_kg_body_weight * quantity) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"
+        postgreSQL_select_Query = "select date_consumed, proteinsum from (select date_consumed, person_id, sum(dv_protein_g_per_kg_body_weight * quantity) as proteinsum from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, person_id order by date_consumed)sq1 where sq1.person_id = %(id)s;"
 
-        cursor.execute(postgreSQL_select_Query)
+        cursor.execute(postgreSQL_select_Query,{'id':id})
         mobile_records = cursor.fetchall()
 
         listprotein = []
@@ -168,6 +175,7 @@ def dashboardPageView(request):
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
+
     totalsod,totalk,totalpro,totalphos,pctphos,pctsod,pctk,pctpro,proteinmax = dailyBars(request)
     protcolor = "bg-success"
     phoscolor = "bg-success"
@@ -204,7 +212,7 @@ def dashboardPageView(request):
         'valuesphos' : listphos,
         'dataprotein' : dictprotein,
         'valuesprotein' : listprotein,
-
+        
         'totalsod' : totalsod,
         'totalk' : totalk,
         'totalpro' : totalpro,
@@ -220,8 +228,7 @@ def dashboardPageView(request):
         'phoscolor' : phoscolor,
         'sodcolor' : sodcolor,
         'potasscolor' : potasscolor,
-
-          }
+    }
     return render(request, 'dashboard/dashboard.html', context)
 
 def dailyBars(request):
@@ -247,9 +254,9 @@ def dailyBars(request):
 
     proteinconsump = weight * 0.6
     pctpro = (totalpro/proteinconsump) * 100
-    pctsod = round((totalsod/2000)*100,2)
-    pctk = (totalk/2750)*100
-    pctphos = (totalphos/900)*100
+    pctsod = round((totalsod/2300)*100,2)
+    pctk = (totalk/3000)*100
+    pctphos = (totalphos/1000)*100
     proteinmax = proteinconsump
 
     context = {
@@ -257,10 +264,10 @@ def dailyBars(request):
         "totalk" : totalk,
         "totalpro" : totalpro,
         "totalphos" : totalphos,
-        "pctsod" : round((totalsod/2000)*100,2),
-        "pctk" : (totalk/2750)*100,
+        "pctsod" : round((totalsod/2300)*100,2),
+        "pctk" : (totalk/3000)*100,
         "pctpro" : pctpro,
-        "pctphos" : (totalphos/900)*100,
+        "pctphos" : (totalphos/1000)*100,
         "proteinmax" : proteinconsump
 
     }
