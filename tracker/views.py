@@ -6,6 +6,7 @@ from django.contrib.auth.models import User, auth
 from datetime import datetime
 from django.shortcuts import redirect
 
+# Returns page, queries database and displays foodconsumption
 
 def trackerPageView(request):
     id = request.user.id
@@ -13,33 +14,17 @@ def trackerPageView(request):
     today = datetime.today()
     foodtoday = FoodConsumption.objects.select_related('person', 'food_name').filter(person_id = id,date_consumed = today).order_by('-date_consumed')
     pastfood = FoodConsumption.objects.filter(person_id = id).exclude(date_consumed = today).order_by('-date_consumed')
-    sodiumlist = []
-    potassiumlist = []
-    phosphoruslist = []
-    proteinlist = []
-    for i in foodtoday:
-         sodiumlist.append(i.food_name.dv_sodium_mg * i.quantity)
-    for i in foodtoday:
-         potassiumlist.append(i.food_name.dv_k_mg * i.quantity)
-    for i in foodtoday:
-         phosphoruslist.append(i.food_name.dv_phos_mg * i.quantity)
-    for i in foodtoday:
-         proteinlist.append(i.food_name.dv_protein_g_per_kg_body_weight * i.quantity)
-
-    
 
     context = {
         "person": user,
         "header" : ["Food Name","Date Consumed","Quantity","Sodium (mg)","Potassium (mg)","Phosphorus (mg)","Protein (g)", "Delete"],
         "foodtoday" : foodtoday,
         "pastfood" : pastfood,
-        "sodiumlist" : sodiumlist,
-        "potassiumlist" : potassiumlist,
-        "phosphoruslist" : phosphoruslist,
-        "proteinlist" : proteinlist
     }
     return render(request, 'tracker/tracker.html', context)
 
+# This pulls data from a form and saves the data to a food. 
+# Then it takes that food and adds it to a person, creating a new foodconsumption
 
 def addUserCustFood(request):
     if request.method == "POST" :
@@ -59,14 +44,10 @@ def addUserCustFood(request):
         foodConsump.date_consumed = request.POST['date']
         foodConsump.quantity = request.POST['quantity']
         foodConsump.save()
-
-
-
-
-        # quantity = FoodConsumption.objects.get(quantity = quantity)
  
     return redirect(trackerPageView)
 
+# This deletes a food
 def deleteUserCustFood(request):
     if request.method == "POST" :
         foodcons_id = request.POST['delete']
@@ -75,41 +56,9 @@ def deleteUserCustFood(request):
     return redirect('tracker')
 
 
-
-# def addFoodConsumed(request) :
-#     if request.method == "POST" :
-#         person_id = request.POST['user_id']
-#         consumed = FoodConsumption.objects.get(user_id=person_id)
-
-#         food = request.POST['food_name']
-#         consumed.food_name.add(Food.objects.get(id=food))
-#         consumed.date_consumed = request.POST['date_consumed']
-#         consumed.quantity = request.POST['quantity']
-    
-#     return render(request, 'tracker/consume.html')
-
-
-
+# Route to render the add customer food form
 def addFoodView(request) :
 
     return render(request, 'tracker/addcustomfood.html')
 
-def addConsumed(request, user_id) :
-    data = FoodConsumption.objects.get(id = user_id)
-    foods = data.food_name  
-    date_consumed = data.date_consumed
-    quantity = data.quantity
-    foodavail = Food.food_name
 
-
-    #avail_consume = Food.objects.get(id__in=data.food_name)
-
-    context = {
-        "record" : data,
-        "food" : foods,
-        "date_consumed" : date_consumed, 
-        "quantity" : quantity,
-        "avail" : foodavail,
-    }
-
-    return render(request, 'tracker/consume.html', context)
