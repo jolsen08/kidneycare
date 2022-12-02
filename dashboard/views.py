@@ -13,7 +13,7 @@ def dashboardPageView(request):
     # totals
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
@@ -46,7 +46,7 @@ def dashboardPageView(request):
     #sodium
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
@@ -78,7 +78,7 @@ def dashboardPageView(request):
     #k
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
@@ -110,7 +110,7 @@ def dashboardPageView(request):
     #phos
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
@@ -142,7 +142,7 @@ def dashboardPageView(request):
     #protein
     try:
         connection = psycopg2.connect(user="postgres",
-            password="password",
+            password="admin123",
             host="localhost",
             port="5432",
             database="intex2")
