@@ -10,9 +10,10 @@ from datetime import datetime, timedelta, time, date
 
 
 def dashboardPageView(request):
+    # totals
     try:
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
@@ -45,13 +46,13 @@ def dashboardPageView(request):
     #sodium
     try:
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
 
         cursor = connection.cursor()
-        postgreSQL_select_Query = "select date_consumed, sum(dv_sodium_mg) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, dfc.person_id order by date_consumed"
+        postgreSQL_select_Query = "select date_consumed, sum(dv_sodium_mg * quantity) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, dfc.person_id order by date_consumed"
 
         cursor.execute(postgreSQL_select_Query)
         mobile_records = cursor.fetchall()
@@ -77,13 +78,13 @@ def dashboardPageView(request):
     #k
     try:
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
 
         cursor = connection.cursor()
-        postgreSQL_select_Query = "select date_consumed, sum(dv_k_mg) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"
+        postgreSQL_select_Query = "select date_consumed, sum(dv_k_mg * quantity) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"
 
         cursor.execute(postgreSQL_select_Query)
         mobile_records = cursor.fetchall()
@@ -109,13 +110,13 @@ def dashboardPageView(request):
     #phos
     try:
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
 
         cursor = connection.cursor()
-        postgreSQL_select_Query = "select date_consumed, sum(dv_phos_mg) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"
+        postgreSQL_select_Query = "select date_consumed, sum(dv_phos_mg * quantity) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"
 
         cursor.execute(postgreSQL_select_Query)
         mobile_records = cursor.fetchall()
@@ -141,13 +142,13 @@ def dashboardPageView(request):
     #protein
     try:
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
 
         cursor = connection.cursor()
-        postgreSQL_select_Query = "select date_consumed, sum(dv_protein_g_per_kg_body_weight) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"
+        postgreSQL_select_Query = "select date_consumed, sum(dv_protein_g_per_kg_body_weight * quantity) from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed order by date_consumed"
 
         cursor.execute(postgreSQL_select_Query)
         mobile_records = cursor.fetchall()
