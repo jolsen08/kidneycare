@@ -44,45 +44,57 @@
           </nav>
 <body>
     <br><br>
-	<form action="/accounts/register" method="POST" class="form-horizontal">
+	<form action="/tracker/adduserfood" method="POST" class="form-horizontal">
 		{% csrf_token%}
 		<div class="mx-auto" style="width: 400px;">
 
 			<div class="col-xs-8 col-xs-offset-4">
-				<h2 style="text-align:center;">SIGN UP</h2>
+				<h2 style="text-align:center;">Add Food to Journal</h2>
 			</div>
 			<hr />
 			<div class="form-group">
-				<label for="username">Username</label>
-				<input type="text" class="form-control" name="username" id="username" placeholder="Enter Username"
+				<label for="name">Food Name: </label>
+				<input type="text" class="form-control" name="name" id="name" placeholder="Enter Food Name"
 					Required>
 			</div>
+			<br>
 			<div class="form-group">
-				<label for="fanme">First Name</label>
-				<input type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name"
+				<label for="na">Sodium Content (mg): </label>
+				<input type="text" class="form-control" name="na" id="na" placeholder="Enter Sodium Content"
 					Required>
 			</div>
+			<br>
 			<div class="form-group">
-				<label for="lname">Last Name</label>
-				<input type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name"
+				<label for="potas">Potassium Content (mg):</label>
+				<input type="text" class="form-control" name="potas" id="potas" placeholder="Enter Potassium Content"
 					Required>
 			</div>
+			<br>
 			<div class="form-group">
-				<label for="email">Email address</label>
-				<input type="email" class="form-control" name="email" id="email" placeholder="Enter email" Required>
+				<label for="phos">Phosphorus Content (mg): </label>
+				<input type="text" class="form-control" name="phos" id="phos" placeholder="Enter Phosphorus Content" Required>
 			</div>
+			<br>
 			<div class="form-group">
-				<label for="password">Password</label>
-				<input type="password" class="form-control" name="password" id="password" placeholder="Enter Password"
+				<label for="protein">Protein Content (g)</label>
+				<input type="text" class="form-control" name="protein" id="protein" placeholder="Enter Protein Content"
+					Required>
+
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="quantity">Quantity</label>
+				<input type="number" class="form-control" name="quantity" id="quantity" min="1" placeholder="Enter Quantity"
 					Required>
 			</div>
+			<br>
 			<div class="form-group">
-				<label for="confirm_password">Confirm Password</label>
-				<input type="password" class="form-control" name="confirm_password" id="confirm_password"
-					placeholder="Confirm Your Password" Required>
+				<label for="date">Date</label>
+				<input type="date" class="form-control" name="date" id="date" placeholder="Enter Date"
+					Required>
 			</div>
-			<button type="submit" class="btn btn-primary">SIGNUP</button>
-			<a class="btn btn-dark" href={% url 'login_user' %} role="button">LOGIN</a>
+			<br>
+			<button type="submit" class="btn btn-primary">Add Food to Journal</button>
 		</div>
 	</form>
 	<div class="form-group">

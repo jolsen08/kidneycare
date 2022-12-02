@@ -243,14 +243,14 @@ def dailyBars(request):
     for i in foodComp:
         totalphos= totalphos+ (i.food_name.dv_phos_mg * i.quantity)
     for i in foodComp:
-       totalpro = totalpro + (i.food_name.dv_protein_g_per_kg_body_weight * i.quantity)
+        totalpro = totalpro + (i.food_name.dv_protein_g_per_kg_body_weight * i.quantity)
 
     proteinconsump = weight * 0.6
-    pctpro = totalpro/proteinconsump
+    pctpro = (totalpro/proteinconsump) * 100
     pctsod = round((totalsod/2000)*100,2)
     pctk = (totalk/2750)*100
     pctphos = (totalphos/900)*100
-    proteinmax =  proteinconsump
+    proteinmax = proteinconsump
 
     context = {
         "totalsod" : totalsod,
