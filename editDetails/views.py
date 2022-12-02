@@ -14,8 +14,11 @@ def editDetailsPageView(request):
     return render(request, 'searchFood/searchFood.html',context)
 # Create your views here.
 
+# This searches the usda API to get nutrient data
 
 def searchfood(request):
+    
+    # take a query and search the API
     query = request.POST['query']
     api_url = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=nKJziBX85O1PlauEx7zsd6qI5zlI4mWcF6aP3ODx&query=" + query + "&pageSize=10&dataType=Survey (FNDDS)"
     response = requests.get(api_url)
@@ -24,7 +27,8 @@ def searchfood(request):
     dict_outer = dict()
     length = len(json_data['foods'][0]['description'])
     today = datetime.today()
-   
+
+    # store API data to a dictionary
     listdict = []
     data_dict['Name'] = json_data['foods'][0]['description']
     fdcid = json_data['foods'][0]['fdcId']
@@ -41,10 +45,6 @@ def searchfood(request):
             data_dict['Potassium'] = [amount,unit]
         elif name == 'Sodium, Na':
             data_dict['Na'] = [amount,unit]
-
-
-    # test = json_data['foods'][0]['foodNutrients'][0]['nutrientName']
-    # pprint.pprint(json_data['foods'][0]['fdcid'])
 
        
     context = {
