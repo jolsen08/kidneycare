@@ -1,14 +1,13 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-
 from dashboard.models import Person
 
-
-
+# sending the user to the home.html page
 def home(request):
     return render(request, 'accounts/home.html')
 
+# routing the user to the account details page and defining the user context variable
 def account_details(request):
     id = request.user.id
     user = Person.objects.get(user_id = id)
@@ -16,7 +15,8 @@ def account_details(request):
         "user" : user
     }
     return render(request, 'accounts/accountdetails.html')    
-    
+
+# authenticating that the user exists in the database    
 def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -31,11 +31,10 @@ def login_user(request):
             messages.info(request, 'Invalid Username or Password')
             return redirect('login_user')
 
-
-
     else:
         return render(request, 'accounts/login.html')
 
+# registering a new user (making sure there are no profiles with matching username or emails)
 def register(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
@@ -59,16 +58,14 @@ def register(request):
                 
                 return redirect('login_user')
 
-
         else:
             messages.info(request, 'Both passwords are not matching')
             return redirect(register)
-            
 
     else:
         return render(request, 'accounts/registration.html')
 
-
+# allowing user to enter the following details and attach it to their Person profile
 def registerdetails(request):
     if request.method == 'POST':
         id = request.POST['user_id']
@@ -83,6 +80,7 @@ def registerdetails(request):
     else:
         return render(request, 'accounts/registration.html')
 
+# allowing the user to enter the following serum and condition details
 def serumdetails(request):
     if request.method == 'POST':
         id = request.POST['user_id']
@@ -100,18 +98,21 @@ def serumdetails(request):
     else:
         return render(request, 'accounts/registration.html')
 
+# directing the user to the pdetails (person details) page
 def pdetails(request):
     data = Person.objects.all()
     context = {
     }
     return render(request, 'accounts/pdetails.html',context)
 
+# directing the user to the sdetails (serum details) page
 def sdetails(request):
     data = Person.objects.all()
     context = {
     }
     return render(request, 'accounts/sdetails.html', context)
 
+# allowing the user to logout and directing them to the appropriate page
 def logout_user(request):
     auth.logout(request)
     return render(request, 'accounts/home.html')

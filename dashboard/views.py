@@ -1,19 +1,18 @@
+# importing the appropriate packages and models
 import json
 from django.shortcuts import render
-# from .query import dictsodium, listsodium, dictk, listk, dictphos, listphos, dictprotein, listprotein
 import json
 import psycopg2
 from django.db.models import Sum
 from dashboard.models import FoodConsumption, Food, Person
 from datetime import datetime, timedelta, time, date
 
-
-
-
 def dashboardPageView(request):
-    
-    # totals
+    # totals (combines all of the micronutrients and protein into one value to display). We don't have this in our program
+    # but may be handy at some point in the future.
     try:
+        # connecting to the database and querying for the values we are searching for. We repeat this pattern for each micronutrient
+        # as well as protein
         connection = psycopg2.connect(user="postgres",
             password="password",
             host="localhost",
@@ -27,6 +26,8 @@ def dashboardPageView(request):
         print("Selecting rows from foodconsumption table using cursor.fetchall")
         mobile_records = cursor.fetchall()
 
+        # converting the results into a dictionary (keys and values) and a list (values). This will be used each time the
+        # dashboard page is refreshed or opened
         listtotal = []
         dicttotal = {}
     
@@ -47,7 +48,7 @@ def dashboardPageView(request):
             print("PostgreSQL connection is closed")
 
 
-    #sodium
+    # sodium
     try:
         id = request.user.id
         connection = psycopg2.connect(user="postgres",
@@ -80,7 +81,7 @@ def dashboardPageView(request):
             print("PostgreSQL connection is closed")
 
 
-    #k
+    # k (potassium)
     try:
         id = request.user.id
         connection = psycopg2.connect(user="postgres",
@@ -139,14 +140,14 @@ def dashboardPageView(request):
         print("Error while fetching data from PostgreSQL", error)
 
     finally:
-            # closing database connection.
+        # closing database connection.
         if connection:
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
 
 
-    #protein
+    # protein
     try:
         id = request.user.id
         connection = psycopg2.connect(user="postgres",
@@ -171,18 +172,20 @@ def dashboardPageView(request):
         print("Error while fetching data from PostgreSQL", error)
 
     finally:
-            # closing database connection.
+        # closing database connection.
         if connection:
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
 
+    # creating variables to be used in the daily journal display
     totalsod,totalk,totalpro,totalphos,pctphos,pctsod,pctk,pctpro,proteinmax = dailyBars(request)
     protcolor = "bg-success"
     phoscolor = "bg-success"
     sodcolor = "bg-success"
     potasscolor = "bg-success"
 
+    # assigning the proper colors according to micronutrient levels
     if pctphos > 100:
         phoscolor = "bg-danger"
     elif pctphos > 75:
@@ -203,8 +206,7 @@ def dashboardPageView(request):
     elif pctpro > 75:
         protcolor = "bg-warning"
 
-    # personresult = Person.objects.filter(id = id)
-    # weight = request.user.person.weight_lbs
+    # declaring attributes to be used and assigning them values based on the CKD stage of the user
     stage = request.user.person.condition
     sodmin = 0
     phosmin = 0
@@ -223,7 +225,8 @@ def dashboardPageView(request):
         proteinamount = 1.2,
         sodmin = 750
         phosmin = 800
-      
+
+    # the default values will be for users who are in stage 3 or 4 of CKD, since we are catering mostly to them. 
     else :
         sodamount = 2300
         kamount = 3000
@@ -233,6 +236,7 @@ def dashboardPageView(request):
         kmin = 2500
         phosmin = 800
 
+    # setting mins equal to maxes if there is no min (this is important for the micronutrient visualizations)
     if sodmin == 0:
         sodmin = sodamount
 
@@ -241,15 +245,13 @@ def dashboardPageView(request):
 
     if kmin == 0:
         kmin = kamount
-        
+
+    # calculating the percent of totals for the user  
     pctsod = round((totalsod/sodamount)*100,2)
     pctk = (totalk/kamount)*100
     pctphos = (totalphos/phosamount)*100
-    # proteinconsump = weight * proteinamount
-    # pctpro = (totalpro/proteinconsump) * 100
-    # proteinmax = proteinconsump
-        
-           
+
+    # declaring variables to be referenced in the dashboard.html page      
     context = {
         'datasodium': dictsodium,
         'valuessodium': listsodium,
@@ -285,9 +287,9 @@ def dashboardPageView(request):
     }
     return render(request, 'dashboard/dashboard.html', context)
 
+# this function updates the daily journal values
 def dailyBars(request):
     stage = request.user.person.condition
-    # get current total value of sodium
     id = request.user.id
     totalsod = 0
     totalk = 0
@@ -296,8 +298,10 @@ def dailyBars(request):
     today = datetime.today()
     personresult = Person.objects.filter(id = id)
     weight = personresult[0].weight_lbs
+    # only accepting foods eaten today
     foodComp = FoodConsumption.objects.select_related('person', 'food_name').filter(person_id = id,date_consumed = today)
-    # for i in foodComp:
+
+    # for loop to add values for each micronutrient and protein
     for i in foodComp:
         totalsod = totalsod + (i.food_name.dv_sodium_mg * i.quantity)
     for i in foodComp:
@@ -307,6 +311,7 @@ def dailyBars(request):
     for i in foodComp:
         totalpro = totalpro + (i.food_name.dv_protein_g_per_kg_body_weight * i.quantity)
     
+    # again adjusting the recommended values for each micronutrient based on user CKD stage
     if stage == 'normal' :
         sodamount = 2300
         kamount = 3500
@@ -324,7 +329,8 @@ def dailyBars(request):
         kamount = 3000
         phosamount = 1000
         proteinamount = .6
-        
+
+    # calculating the percent totals to appear in the dashboard   
     pctsod = round((totalsod/sodamount)*100,2)
     pctk = (totalk/kamount)*100
     pctphos = (totalphos/phosamount)*100
@@ -332,8 +338,7 @@ def dailyBars(request):
     pctpro = (totalpro/proteinconsump) * 100
     proteinmax = proteinconsump
 
-    print(str(kamount))
-
+    # declaring variables in the context to be used in the html page
     context = {
         "totalsod" : round(totalsod,2),
         "totalk" : round(totalk,2),
@@ -348,7 +353,5 @@ def dailyBars(request):
         "kamount" : round(kamount,2),
         "phosamount" : round(phosamount,2),
     }
-    print(totalpro)
-    print(proteinconsump)
+    # returning all the variables
     return totalsod,totalk,totalpro,totalphos,pctphos,pctsod,pctk,pctpro,proteinmax
-    # required values & current daily amounts

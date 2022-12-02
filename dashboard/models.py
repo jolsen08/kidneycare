@@ -1,3 +1,4 @@
+# importing the appropriate packages and models
 from tkinter import CASCADE
 from django.db import models
 from datetime import datetime
@@ -5,15 +6,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save 
 
-
-# class Condition(models.Model) :
-#     condition_stage = models.IntegerField()
-
-#     def __str__(self) :
-#         self.condition_stage = str(self.condition_stage)
-#         return('Kidney Disease Stage ' + self.condition_stage)
-
-
+# Creating the person model, including condition and serum levels and connecting to the user class with a one to one relationship
 class Person(models.Model) :
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(max_length=10, default="none")
@@ -30,20 +23,16 @@ class Person(models.Model) :
     serum_albumin_mg_per_dL = models.FloatField(default="0")
     serum_blood_sugar_mg_per_dL = models.FloatField(default="0")
 
+    # returning the full name to the admin
     def __str__(self) :
         self.user.first_name = self.user.first_name.upper()
         return(self.user.first_name)
 
+    # returning the user
     def __str__(self) :
         return(str(self.user))
 
-    # @property
-    # def full_name(self) :
-    #     return '%s %s' % (self.first_name, self.last_name)
-    
-    # def save(self) :
-    #     super(Person, self).save()
-
+# saves and updates person whenever user is saved or updated
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -53,8 +42,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.person.save()
 
-# a.get_profile().DOB
-
+# the remaining models in our database
 class Food(models.Model) :
     food_name = models.CharField(max_length=100)
     dv_sodium_mg = models.FloatField()

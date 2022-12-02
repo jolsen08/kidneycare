@@ -1,10 +1,8 @@
+# this is a test page
 import psycopg2
-# import pandas as pd
-# import seaborn as sns
 import json
 
 def querydashboard() :
-#totals
     try:
         connection = psycopg2.connect(user="postgres",
             password="password",
@@ -28,9 +26,6 @@ def querydashboard() :
             print("total micro-macro nutrients = ", row[1])
             dicttotal[row[0]] = row[1]
             listtotal.append(dicttotal[row[0]])
-            # print("dv_protein_g_per_kg_body_weight = ", row[2])
-            # print("dv_k_mg = ", row[3])
-            # print("dv_phos_mg", row[4])
         
         with open('data.json', 'w') as f:
             json.dump(str(dicttotal), f)
@@ -39,14 +34,14 @@ def querydashboard() :
         print("Error while fetching data from PostgreSQL", error)
 
     finally:
-            # closing database connection.
+        # closing database connection.
         if connection:
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
 
 
-    #sodium
+    # sodium
     try:
         connection = psycopg2.connect(user="postgres",
             password="password",
@@ -70,9 +65,6 @@ def querydashboard() :
             print("total sodium = ", row[1])
             dictsodium[row[0]] = row[1]
             listsodium.append(dictsodium[row[0]])
-            # print("dv_protein_g_per_kg_body_weight = ", row[2])
-            # print("dv_k_mg = ", row[3])
-            # print("dv_phos_mg", row[4])
         
         with open('data.json', 'w') as f:
             json.dump(str(dictsodium), f)
@@ -81,14 +73,14 @@ def querydashboard() :
         print("Error while fetching data from PostgreSQL", error)
 
     finally:
-            # closing database connection.
+        # closing database connection.
         if connection:
             cursor.close()
             connection.close()
             print("PostgreSQL connection is closed")
 
 
-    #k
+    # k (potassium)
     try:
         connection = psycopg2.connect(user="postgres",
             password="password",
@@ -112,9 +104,6 @@ def querydashboard() :
             print("total potassium = ", row[1])
             dictk[row[0]] = row[1]
             listk.append(dictk[row[0]])
-            # print("dv_protein_g_per_kg_body_weight = ", row[2])
-            # print("dv_k_mg = ", row[3])
-            # print("dv_phos_mg", row[4])
         
         with open('data.json', 'w') as f:
             json.dump(str(dictk), f)

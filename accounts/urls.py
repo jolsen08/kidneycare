@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-
+# url routes for the accounts app
 urlpatterns = [
     path("pdetails/", views.pdetails, name="pdetails"),
     path("pdetails", views.pdetails, name="pdetails"),

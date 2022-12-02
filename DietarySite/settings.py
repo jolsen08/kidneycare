@@ -1,3 +1,7 @@
+# Sam Reyes, Sam Goodson, Mason Frodsham, Jacob Olsen
+# Section 3, Group 13
+# INTEX 2022
+
 """
 Django settings for DietarySite project.
 
@@ -79,6 +83,7 @@ WSGI_APPLICATION = 'DietarySite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# matching the database values with our postgres database
 DATABASES = {
      'default': {
      'ENGINE': 'django.db.backends.postgresql',
