@@ -14,7 +14,7 @@ def dashboardPageView(request):
         # connecting to the database and querying for the values we are searching for. We repeat this pattern for each micronutrient
         # as well as protein
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
@@ -52,7 +52,7 @@ def dashboardPageView(request):
     try:
         id = request.user.id
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
@@ -85,7 +85,7 @@ def dashboardPageView(request):
     try:
         id = request.user.id
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
@@ -118,7 +118,7 @@ def dashboardPageView(request):
     try:
         id = request.user.id
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
@@ -151,7 +151,7 @@ def dashboardPageView(request):
     try:
         id = request.user.id
         connection = psycopg2.connect(user="postgres",
-            password="admin123",
+            password="password",
             host="localhost",
             port="5432",
             database="intex2")
