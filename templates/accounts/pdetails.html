@@ -1,53 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
+{% load static %}
 <html lang="en">
-
-<head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-	<title>Personal Details</title>
-</head>
-
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Add Food</title>
+        <!-- Favicon-->
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="{% url 'index' %}">KidneyCare</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                  <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'accountdetails' %}">Account</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'tracker' %}">Food Journal</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'dashboard' %}">Health Tracker</a>
+                    </li>
+  
+                    {% else %}
+  
+                    {% endif %}
+                  </li>
+                </ul>
+                  <a class="nav-link" style = "color:white" href="{% url 'logout_user' %}">LOGOUT</a>
+              </div>
+            </div>
+          </nav>
 <body>
 	<form action="/accounts/registerdetails" method="POST" class="form-horizontal">
 		{% csrf_token%}
 		<div class="mx-auto" style="width: 400px;">
 
 			<div class="col-xs-8 col-xs-offset-4">
+				<br>
 				<h2 style="text-align:center;">PERSONAL DETAILS</h2>
 			</div>
 			<hr />
 
 			<div class="form-group">
 				<input type="hidden" class="form-control" name="user_id" id="user_id" value="{{user.id}}" placeholder = "{{user.id}}"
-				<label for="age">Gender</label>
-				<input type="text" class="form-control" name="gender" id="gender" placeholder="Enter Gender"
-					Required>
 			</div>
-			
+			<label for="gender" class="form-label mt-4">Gender</label>
+			<select class="form-select" id="gender" name="gender">
+			  <option>Male</option>
+			  <option>Female</option>
+			  <option>Other</option>
+			</select>
+			<br>
+
+
+
+
+
 			<div class="form-group">
 				<label for="age">Age</label>
 				<input type="text" class="form-control" name="age" id="age" placeholder="Enter Age"
 					Required>
 			</div>
+<br>
 
             <div class="form-group">
                 <label for="height">Height (in.)</label>
                 <input type="text" class="form-control" name="height" id="height" placeholder="Enter Height (in.)"
                     Required>
-					
+			<br>	
+
             <div class="form-group">
                 <label for="weight">Weight (lbs.)</label>
                 <input type="text" class="form-control" name="weight" id="weight" placeholder="Enter Weight (lbs.)"
                     Required>
+			
             </div>
 			</div>
-
+			<br>
 			<button type="submit" class="btn btn-primary">SUBMIT</button>
 		</div>
 	</form>
