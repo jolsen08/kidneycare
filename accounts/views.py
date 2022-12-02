@@ -83,11 +83,33 @@ def registerdetails(request):
     else:
         return render(request, 'accounts/registration.html')
 
+def serumdetails(request):
+    if request.method == 'POST':
+        id = request.POST['user_id']
+        user = Person.objects.get(user_id=id)
+        user.serum_k_mg_per_dL = request.POST['k']
+        user.serum_phos_mg_per_dL_min = request.POST['phos']
+        user.serum_na_mEq_per_L_min = request.POST['na']
+        user.serum_creatinine_mg_per_dL = request.POST['creatinine']
+        user.serum_albumin_mg_per_dL = request.POST['albumin']
+        user.serum_blood_sugar_mg_per_dL = request.POST['blood_sugar']
+
+        user.save() 
+        return render(request, 'accounts/accountdetails.html')
+    else:
+        return render(request, 'accounts/registration.html')
+
 def pdetails(request):
     data = Person.objects.all()
     context = {
     }
     return render(request, 'accounts/pdetails.html',context)
+
+def sdetails(request):
+    data = Person.objects.all()
+    context = {
+    }
+    return render(request, 'accounts/sdetails.html', context)
 
 def logout_user(request):
     auth.logout(request)
