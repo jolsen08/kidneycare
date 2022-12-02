@@ -27,7 +27,7 @@
                     <a class="nav-link" href="{% url 'accountdetails' %}">Account</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'tracker' %}">Food Journal</a>
+                    <a class="nav-link" href="{% url 'tracker' %}">Food/Drink Journal</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'dashboard' %}">Health Tracker</a>
@@ -63,7 +63,7 @@
                 <br><br>
                 <div class="card">
                   <div class="card-body">
-                    <h1 class="card-title">Serum Levels (from tests performed by a medical professional)</h1>
+                    <h1 class="card-title">Serum Levels and CKD Stage</h1>
                     <p class="card-text" style="text-align:left">
                       <p>Potassium (mg/dL): {{user.person.serum_k_mg_per_dL}}</p>
                       <p>Phosphorus (mg/dL): {{user.person.serum_phos_mg_per_dL_min}}</p>
@@ -71,7 +71,8 @@
                       <p>Creatinine (mg/dL): {{user.person.serum_creatinine_mg_per_dL}}</p>
                       <p>Albumin (mg/dL): {{user.person.serum_albumin_mg_per_dL}}</p>
                       <p>Blood Sugar (mg/dL): {{user.person.serum_blood_sugar_mg_per_dL}}</p>
-                      <a href="{% url 'sdetails' %}" style="">Update Serum Level</a>
+                      <p>CKD Stage: {{user.person.condition}}</p>
+                      <a href="{% url 'sdetails' %}" style="">Update Serum Level and Enter CKD Stage</a>
                     </p>
                   </div>
                 </div>

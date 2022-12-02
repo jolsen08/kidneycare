@@ -50,55 +50,57 @@
 
 			<div class="col-xs-8 col-xs-offset-4">
 				<br>
-				<h2 style="text-align:center;">SERUM TEST RESULTS</h2>
+				<h2 style="text-align:center;">SERUM TEST RESULTS + CKD STAGE</h2>
 			</div>
 			<hr />
-
+      <div class="form-group">
+        <label for="blood_sugar">Kidney Disease Stage</label>
+        <select name="stage" id="stage" class="form-control" Required>
+          <option value = "normal">Normal (no Chronic Kidney disease diagnosis)</option>
+          <option value = "34">Stage 3-4</option>
+          <option value = "dialysis">Dialysis</option>
+      </div> 
+  
 			<div class="form-group">
 				<input type="hidden" class="form-control" name="user_id" id="user_id" value="{{user.id}}" placeholder = "{{user.id}}"
 				<label for="k">Potassium (mg/mL)</label>
 				<input type="text" class="form-control" name="k" id="k" placeholder="Enter Potassium"
 					Required>
 			</div>
-			<br>
 			
 			<div class="form-group">
 				<label for="phos">Phosphorus (mg/mL)</label>
 				<input type="text" class="form-control" name="phos" id="phos" placeholder="Enter Phosphorus"
 					Required>
 			</div>
-			<br>
-
-            <div class="form-group">
-                <label for="na">Sodium (mEq/L)</label>
-                <input type="text" class="form-control" name="na" id="na" placeholder="Enter Sodium"
-                    Required>
-			<br>
+		
+      <div class="form-group">
+        <label for="na">Sodium (mEq/L)</label>
+        <input type="text" class="form-control" name="na" id="na" placeholder="Enter Sodium"
+          Required>
+      </div>
 					
-            <div class="form-group">
-                <label for="creatinine">Creatinine (mg/mL)</label>
-                <input type="text" class="form-control" name="creatinine" id="creatinine" placeholder="Enter Creatinine"
-                    Required>
-            </div>
-			<br>
+      <div class="form-group">
+        <label for="creatinine">Creatinine (mg/mL)</label>
+        <input type="text" class="form-control" name="creatinine" id="creatinine" placeholder="Enter Creatinine"
+          Required>
+      </div>
 
 			<div class="form-group">
-                <label for="albumin">Albumin (mg/dL)</label>
-                <input type="text" class="form-control" name="albumin" id="albumin" placeholder="Enter Albumin"
-                    Required>
-            </div>
-			<br>
+        <label for="albumin">Albumin (mg/dL)</label>
+        <input type="text" class="form-control" name="albumin" id="albumin" placeholder="Enter Albumin"
+          Required>
+      </div>
 
 			<div class="form-group">
-                <label for="blood_sugar">Blood Sugar (mg/dL)</label>
-                <input type="text" class="form-control" name="blood_sugar" id="blood_sugar" placeholder="Enter Blood Sugar"
-                    Required>
-            </div>
+        <label for="blood_sugar">Blood Sugar (mg/dL)</label>
+        <input type="text" class="form-control" name="blood_sugar" id="blood_sugar" placeholder="Enter Blood Sugar"
+          Required>
+      </div>
 			</div>
-			<br>
-
-			<button type="submit" style="left: 50%; transform: translateX(-50%)" class="btn btn-primary">SUBMIT</button>
 		</div>
+    <br>
+    <button style="left: 50%; transform: translateX(-50%)" type="submit" class="btn btn-primary">SUBMIT</button>
 	</form>
 	<div class="form-group">
 		{% for message in messages %}

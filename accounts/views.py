@@ -93,6 +93,7 @@ def serumdetails(request):
         user.serum_creatinine_mg_per_dL = request.POST['creatinine']
         user.serum_albumin_mg_per_dL = request.POST['albumin']
         user.serum_blood_sugar_mg_per_dL = request.POST['blood_sugar']
+        user.condition = request.POST['stage']
 
         user.save() 
         return render(request, 'accounts/accountdetails.html')

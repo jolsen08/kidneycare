@@ -22,7 +22,7 @@ class Person(models.Model) :
     weight_lbs = models.IntegerField(default="0")
     highbloodpressure = models.BooleanField(default=False)
     diabetes = models.BooleanField(default=False)
-    condition = models.IntegerField(default="0")
+    condition = models.CharField(max_length=20, default="0")
     serum_k_mg_per_dL = models.FloatField(default="0")
     serum_phos_mg_per_dL_min = models.FloatField(default="0")
     serum_na_mEq_per_L_min = models.FloatField(default="0")

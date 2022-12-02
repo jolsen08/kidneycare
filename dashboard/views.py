@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, time, date
 
 
 def dashboardPageView(request):
-  
+    
     # totals
     try:
         connection = psycopg2.connect(user="postgres",
@@ -202,6 +202,52 @@ def dashboardPageView(request):
         protcolor = "bg-danger"
     elif pctpro > 75:
         protcolor = "bg-warning"
+
+    # personresult = Person.objects.filter(id = id)
+    # weight = request.user.person.weight_lbs
+    stage = request.user.person.condition
+    sodmin = 0
+    phosmin = 0
+    kmin = 0
+    
+    if stage == 'normal' :
+        sodamount = 2300
+        kamount = 3500
+        phosamount = 3000
+        proteinamount = .8
+       
+    elif stage == 'dialysis' :
+        sodamount = 2000
+        kamount = 2000
+        phosamount = 1000
+        proteinamount = 1.2,
+        sodmin = 750
+        phosmin = 800
+      
+    else :
+        sodamount = 2300
+        kamount = 3000
+        phosamount = 1000
+        proteinamount = .6
+        sodmin = 1495
+        kmin = 2500
+        phosmin = 800
+
+    if sodmin == 0:
+        sodmin = sodamount
+
+    if phosmin == 0:
+        phosmin = phosamount
+
+    if kmin == 0:
+        kmin = kamount
+        
+    pctsod = round((totalsod/sodamount)*100,2)
+    pctk = (totalk/kamount)*100
+    pctphos = (totalphos/phosamount)*100
+    # proteinconsump = weight * proteinamount
+    # pctpro = (totalpro/proteinconsump) * 100
+    # proteinmax = proteinconsump
         
            
     context = {
@@ -213,6 +259,13 @@ def dashboardPageView(request):
         'valuesphos' : listphos,
         'dataprotein' : dictprotein,
         'valuesprotein' : listprotein,
+        'sodamount' : sodamount,
+        'kamount' : kamount,
+        'phosamount' : phosamount,
+        'proteinamount' : proteinamount,
+        "sodmin" : sodmin,
+        "phosmin" : phosmin,
+        "kmin" : kmin,
         
         'totalsod' : totalsod,
         'totalk' : totalk,
@@ -233,6 +286,7 @@ def dashboardPageView(request):
     return render(request, 'dashboard/dashboard.html', context)
 
 def dailyBars(request):
+    stage = request.user.person.condition
     # get current total value of sodium
     id = request.user.id
     totalsod = 0
@@ -252,26 +306,49 @@ def dailyBars(request):
         totalphos= totalphos+ (i.food_name.dv_phos_mg * i.quantity)
     for i in foodComp:
         totalpro = totalpro + (i.food_name.dv_protein_g_per_kg_body_weight * i.quantity)
-
-    proteinconsump = weight * 0.6
+    
+    if stage == 'normal' :
+        sodamount = 2300
+        kamount = 3500
+        phosamount = 3000
+        proteinamount = .8
+       
+    elif stage == 'dialysis' :
+        sodamount = 2000
+        kamount = 2000
+        phosamount = 1000
+        proteinamount = 1.2
+      
+    else :
+        sodamount = 2300
+        kamount = 3000
+        phosamount = 1000
+        proteinamount = .6
+        
+    pctsod = round((totalsod/sodamount)*100,2)
+    pctk = (totalk/kamount)*100
+    pctphos = (totalphos/phosamount)*100
+    proteinconsump = weight * proteinamount
     pctpro = (totalpro/proteinconsump) * 100
-    pctsod = round((totalsod/2300)*100,2)
-    pctk = (totalk/3000)*100
-    pctphos = (totalphos/1000)*100
     proteinmax = proteinconsump
+
+    print(str(kamount))
 
     context = {
         "totalsod" : round(totalsod,2),
         "totalk" : round(totalk,2),
         "totalpro" : totalpro,
         "totalphos" : totalphos,
-        "pctsod" : round((totalsod/2300)*100,2),
-        "pctk" : (totalk/3000)*100,
+        "pctsod" : round(pctsod,2),
+        "pctk" : round(pctk,2),
         "pctpro" : pctpro,
-        "pctphos" : (totalphos/1000)*100,
-        "proteinmax" : proteinconsump
-
+        "pctphos" : round(pctphos,2),
+        "proteinmax" : proteinconsump,
+        "sodamount" : round(sodamount,2),
+        "kamount" : round(kamount,2),
+        "phosamount" : round(phosamount,2),
     }
-
+    print(totalpro)
+    print(proteinconsump)
     return totalsod,totalk,totalpro,totalphos,pctphos,pctsod,pctk,pctpro,proteinmax
     # required values & current daily amounts
