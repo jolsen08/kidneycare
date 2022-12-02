@@ -9,6 +9,7 @@ from datetime import datetime, timedelta, time, date
 
 
 
+
 def dashboardPageView(request):
     # totals
     try:
@@ -253,15 +254,15 @@ def dailyBars(request):
     proteinmax = proteinconsump
 
     context = {
-        "totalsod" : totalsod,
-        "totalk" : totalk,
+        "totalsod" : round(totalsod,2),
+        "totalk" : round(totalk,2),
         "totalpro" : totalpro,
-        "totalphos" : totalphos,
+        "totalphos" : round(totalphos,2),
         "pctsod" : round((totalsod/2000)*100,2),
         "pctk" : (totalk/2750)*100,
         "pctpro" : pctpro,
         "pctphos" : (totalphos/900)*100,
-        "proteinmax" : proteinconsump
+        "proteinmax" : round(proteinconsump,2)
 
     }
 
