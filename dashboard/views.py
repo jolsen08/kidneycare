@@ -6,6 +6,8 @@ import psycopg2
 from django.db.models import Sum
 from dashboard.models import FoodConsumption, Food, Person
 from datetime import datetime, timedelta, time, date
+import os
+import dj_database_url
 
 def dashboardPageView(request):
     # totals (combines all of the micronutrients and protein into one value to display). We don't have this in our program
@@ -13,11 +15,8 @@ def dashboardPageView(request):
     try:
         # connecting to the database and querying for the values we are searching for. We repeat this pattern for each micronutrient
         # as well as protein
-        connection = psycopg2.connect(user="postgres",
-            password="password",
-            host="localhost",
-            port="5432",
-            database="intex2")
+        DATABASE_URL = os.getenv("DATABASE_URL")
+        connection = psycopg2.connect(dj_database_url.config(default=DATABASE_URL, conn_max_age=1800))
 
         cursor = connection.cursor()
         postgreSQL_select_Query = "select date_consumed, (sodium + k + protein + phos) as total from (select date_consumed, sum(dv_sodium_mg * quantity) as sodium, sum(dv_protein_g_per_kg_body_weight * quantity) as protein, sum(dv_k_mg * quantity) as k, sum(dv_phos_mg * quantity) as phos from dashboard_foodconsumption inner join dashboard_food on dashboard_foodconsumption.food_name_id = dashboard_food.id group by date_consumed order by date_consumed)sq1 order by date_consumed"
@@ -51,11 +50,8 @@ def dashboardPageView(request):
     # sodium
     try:
         id = request.user.id
-        connection = psycopg2.connect(user="postgres",
-            password="password",
-            host="localhost",
-            port="5432",
-            database="intex2")
+        DATABASE_URL = os.getenv("DATABASE_URL")
+        connection = psycopg2.connect(dj_database_url.config(default=DATABASE_URL, conn_max_age=1800))
 
         cursor = connection.cursor()
         postgreSQL_select_Query = "select date_consumed, sodiumsum from (select date_consumed, person_id, sum(dv_sodium_mg * quantity) as sodiumsum from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, person_id order by date_consumed)sq1 where sq1.person_id = %(id)s;"
@@ -84,11 +80,8 @@ def dashboardPageView(request):
     # k (potassium)
     try:
         id = request.user.id
-        connection = psycopg2.connect(user="postgres",
-            password="password",
-            host="localhost",
-            port="5432",
-            database="intex2")
+        DATABASE_URL = os.getenv("DATABASE_URL")
+        connection = psycopg2.connect(dj_database_url.config(default=DATABASE_URL, conn_max_age=1800))
 
         cursor = connection.cursor()
         postgreSQL_select_Query = "select date_consumed, ksum from (select date_consumed, person_id, sum(dv_k_mg * quantity) as ksum from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, person_id order by date_consumed)sq1 where sq1.person_id = %(id)s;"
@@ -117,11 +110,8 @@ def dashboardPageView(request):
     #phos
     try:
         id = request.user.id
-        connection = psycopg2.connect(user="postgres",
-            password="password",
-            host="localhost",
-            port="5432",
-            database="intex2")
+        DATABASE_URL = os.getenv("DATABASE_URL")
+        connection = psycopg2.connect(dj_database_url.config(default=DATABASE_URL, conn_max_age=1800))
 
         cursor = connection.cursor()
         postgreSQL_select_Query = "select date_consumed, phossum from (select date_consumed, person_id, sum(dv_phos_mg * quantity) as phossum from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, person_id order by date_consumed)sq1 where sq1.person_id = %(id)s;"
@@ -150,11 +140,8 @@ def dashboardPageView(request):
     # protein
     try:
         id = request.user.id
-        connection = psycopg2.connect(user="postgres",
-            password="password",
-            host="localhost",
-            port="5432",
-            database="intex2")
+        DATABASE_URL = os.getenv("DATABASE_URL")
+        connection = psycopg2.connect(dj_database_url.config(default=DATABASE_URL, conn_max_age=1800))
 
         cursor = connection.cursor()
         postgreSQL_select_Query = "select date_consumed, proteinsum from (select date_consumed, person_id, sum(dv_protein_g_per_kg_body_weight * quantity) as proteinsum from dashboard_foodconsumption dfc inner join dashboard_food df on dfc.food_name_id = df.id group by date_consumed, person_id order by date_consumed)sq1 where sq1.person_id = %(id)s;"
